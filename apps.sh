@@ -1,8 +1,8 @@
-# brewl.sh
+# apps.sh
 # Author: Donovan Dikaio <github@dikaio.com>
 # Source: https://github.com/dikaio/dotfiles
 # =============================================================================
-# Install apps available via Homebrew!
+# Install apps available via Homebrew...
 
 # run as administrator
 sudo -v
