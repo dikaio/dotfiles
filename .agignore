@@ -1,0 +1,16 @@
+# .agignore
+# Author: Donovan Dikaio <github@dikaio.com>
+# Source: https://github.com/dikaio/dotfiles
+# =============================================================================
+
+node_modules
+bower_components
+
+images
+img
+
+.git
+
+.vagrant
+*.pkg.js
+build
