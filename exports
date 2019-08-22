@@ -1,0 +1,20 @@
+### Todo ###
+# 1. Verify these exports for macOS, these look like ubuntu paths
+# 2. Fix with macOS paths and commit to encrypted repository e.g. 1password
+############
+
+
+# add paths if available
+if [ -d $HOME/bin/packer ]; then
+  PATH=$PATH:$HOME/bin/packer
+fi
+if [ -d $HOME/.composer/vendor/bin ]; then
+  PATH=$PATH:$HOME/.composer/vendor/bin
+fi
+export PATH
+
+# nvm env
+export NVM_DIR="$HOME/.nvm"
+
+# local pw no worries mwah!
+export PW='rzBV.ctroz*vQhiaJ@K7Z8pcC3eff4;z'
