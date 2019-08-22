@@ -1,8 +1,8 @@
-# install.sh
+# brew.sh
 # Author: Donovan Dikaio <github@dikaio.com>
 # Source: https://github.com/dikaio/dotfiles
 # =============================================================================
-# Runs entire install on new macOS!
+# Install internal software
 
 brew install macvim --with-override-system-vim
 
