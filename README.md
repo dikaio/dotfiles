@@ -1,4 +1,4 @@
 Soon to be steps of for installing and updating personal dotfiles.
 
-**to do**
-- Create configuration script to run things like `rcup ~/dotfiles` etc. on OS startup.
+**TO DO**
+- Create configuration script to run etc. on OS startup e.g. `rcup ~/dotfiles`
