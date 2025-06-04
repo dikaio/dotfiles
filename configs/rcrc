@@ -1,0 +1,53 @@
+# ===========================================
+# RCRC Configuration for rcm (RC file manager)
+# rcm is a management suite for dotfiles
+# Author: Don Dikaio <git@dika.io>
+# ===========================================
+
+# Directories containing dotfiles to manage
+# Listed in order of precedence (last wins)
+DOTFILES_DIRS="$HOME/.dotfiles $HOME/.dotfiles"
+
+# Files and patterns to exclude from symlinking
+# These files will remain in the dotfiles directory but won't be linked
+EXCLUDES="*.md \
+  LICENSE \
+  README* \
+  CONTRIBUTING* \
+  .git \
+  .gitignore \
+  install.sh \
+  setup.sh \
+  Brewfile* \
+  Makefile"
+
+# Files that should always be copied instead of symlinked
+# Useful for files that need to be modified locally
+COPY_ALWAYS="git_template/HEAD"
+
+# Additional modern rcm configuration options
+# Uncomment and modify as needed:
+
+# Tags to include when running rcup
+# Useful for machine-specific configurations
+# TAGS="macos personal"
+
+# Hostname-specific configurations
+# HOSTNAME="$(hostname -s)"
+
+# Symlink directories instead of individual files
+# Improves performance for directories with many files
+# SYMLINK_DIRS="config vim"
+
+# Files to process with erb templating
+# Allows dynamic content in dotfiles
+# UNDOTTED="bin"
+
+# Verbosity level (0-3, higher is more verbose)
+# VERBOSE=1
+
+# Custom installation prefix
+# PREFIX="$HOME"
+
+# Hook scripts directory
+# HOOKS_DIR="$HOME/.dotfiles/hooks"

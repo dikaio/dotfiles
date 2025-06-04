@@ -1,0 +1,222 @@
+# editorconfig.local
+# Author: Don Dikaio <git@dika.io>
+# Source: https://github.com/dikaio/dotfiles
+# ===========================================
+#
+# EditorConfig helps maintain consistent coding styles
+# across different editors and IDEs.
+# See https://editorconfig.org for more information
+
+# Top-most EditorConfig file
+root = true
+
+# ====================
+# DEFAULT SETTINGS
+# ====================
+
+# Default settings for all files
+[*]
+# Use spaces for indentation
+indent_style = space
+indent_size = 2
+
+# Tab display width (for files using tabs)
+tab_width = 4
+
+# Unix-style newlines
+end_of_line = lf
+
+# UTF-8 character encoding
+charset = utf-8
+
+# Remove trailing whitespace
+trim_trailing_whitespace = true
+
+# Ensure files end with a newline
+insert_final_newline = true
+
+# Maximum line length (supported by some editors)
+max_line_length = 120
+
+# ====================
+# LANGUAGE SPECIFIC
+# ====================
+
+# Python
+[*.{py,pyw}]
+indent_size = 4
+max_line_length = 88  # Black formatter default
+
+# Go
+[*.go]
+indent_style = tab
+indent_size = 4
+tab_width = 4
+
+# Makefile (must use tabs)
+[{Makefile,**.mk}]
+indent_style = tab
+
+# YAML files
+[*.{yml,yaml}]
+indent_size = 2
+quote_type = single
+
+# JavaScript/TypeScript
+[*.{js,jsx,ts,tsx,mjs,cjs}]
+indent_size = 2
+quote_type = single
+max_line_length = 100
+
+# Vue files
+[*.vue]
+indent_size = 2
+quote_type = single
+
+# JSON files
+[*.{json,jsonc,json5}]
+indent_size = 2
+
+# CSS/SCSS/LESS
+[*.{css,scss,sass,less,styl}]
+indent_size = 2
+quote_type = single
+
+# HTML/XML
+[*.{html,htm,xml,svg}]
+indent_size = 2
+quote_type = double
+
+# Markdown
+[*.{md,mdx}]
+trim_trailing_whitespace = false  # Preserve trailing spaces for line breaks
+max_line_length = off
+
+# Shell scripts
+[*.{sh,bash,zsh}]
+indent_size = 2
+shell_variant = posix
+
+# Ruby
+[*.{rb,rake}]
+indent_size = 2
+
+# Rust
+[*.rs]
+indent_size = 4
+max_line_length = 100
+
+# C/C++ and related
+[*.{c,cc,h,hh,cpp,hpp,cxx,hxx,m,mm}]
+indent_size = 4
+curly_bracket_next_line = false
+spaces_around_operators = true
+spaces_around_brackets = outside
+
+# Java
+[*.java]
+indent_size = 4
+continuation_indent_size = 8
+curly_bracket_next_line = false
+
+# C#
+[*.{cs,csx}]
+indent_size = 4
+curly_bracket_next_line = false
+
+# PHP
+[*.{php,phtml}]
+indent_size = 4
+
+# Swift
+[*.swift]
+indent_size = 4
+curly_bracket_next_line = false
+
+# Kotlin
+[*.{kt,kts}]
+indent_size = 4
+
+# ====================
+# CONFIGURATION FILES
+# ====================
+
+# Docker
+[{Dockerfile,Dockerfile.*}]
+indent_size = 2
+
+# Git
+[.git*]
+indent_size = 2
+
+# EditorConfig itself
+[.editorconfig]
+indent_size = 2
+
+# Prettier
+[.prettierrc*]
+indent_size = 2
+
+# ESLint
+[.eslintrc*]
+indent_size = 2
+
+# Package files
+[{package.json,package-lock.json,yarn.lock,pnpm-lock.yaml}]
+indent_size = 2
+
+# ====================
+# DOCUMENTATION
+# ====================
+
+# reStructuredText
+[*.{rst,rest}]
+indent_size = 3
+
+# AsciiDoc
+[*.{adoc,asc}]
+indent_size = 2
+
+# ====================
+# DATA FILES
+# ====================
+
+# CSV
+[*.csv]
+insert_final_newline = false
+
+# SQL
+[*.sql]
+indent_size = 2
+indent_style = space
+
+# ====================
+# SPECIAL FILES
+# ====================
+
+# Batch files (Windows)
+[*.{bat,cmd}]
+end_of_line = crlf
+
+# PowerShell
+[*.{ps1,psd1,psm1}]
+indent_size = 4
+end_of_line = crlf
+
+# Git attributes/ignore files
+[{.gitattributes,.gitignore}]
+end_of_line = lf
+
+# Ignore minified files
+[**.min.*]
+indent_style = ignore
+insert_final_newline = ignore
+trim_trailing_whitespace = ignore
+
+# Ignore generated files
+[{**/vendor/**,**/node_modules/**,**/dist/**,**/build/**}]
+indent_style = ignore
+indent_size = ignore
+end_of_line = ignore
+trim_trailing_whitespace = ignore
+insert_final_newline = ignore

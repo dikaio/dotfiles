@@ -1,0 +1,295 @@
+# gitignore.local
+# Author: Don Dikaio <git@dika.io>
+# Source: https://github.com/dikaio/dotfiles
+# ===========================================
+#
+# Global gitignore file - applies to all repositories
+# Configure with: git config --global core.excludesfile ~/.gitignore.local
+
+# ====================
+# SECRETS & CREDENTIALS
+# ====================
+
+# Environment files
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Secret files
+*.secrets
+*.private
+*-secret
+*-private
+secrets/
+private/
+
+# Authentication
+.netrc
+.authinfo
+.authinfo.gpg
+
+# Cloud credentials
+.aws/credentials
+.gcloud/
+.azure/
+
+# API keys
+.api_keys
+api_keys.yml
+credentials.yml
+
+# ====================
+# SSH & SECURITY
+# ====================
+
+# SSH keys (shouldn't be in repos anyway)
+id_rsa*
+id_ed25519*
+id_dsa*
+*.pem
+*.key
+*.p12
+*.pfx
+
+# GPG
+*.gpg
+*.asc
+*.sig
+secring.*
+
+# ====================
+# SHELL HISTORY
+# ====================
+
+# Shell history files
+.bash_history
+.zsh_history
+.sh_history
+.histfile
+.*_history
+
+# REPL history
+.python_history
+.node_repl_history
+.irb_history
+.psql_history
+.mysql_history
+.sqlite_history
+.rediscli_history
+
+# ====================
+# MACOS
+# ====================
+
+# General
+.DS_Store
+.DS_Store?
+.AppleDouble
+.LSOverride
+Icon
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# ====================
+# EDITORS & IDES
+# ====================
+
+# Vim
+[._]*.s[a-v][a-z]
+[._]*.sw[a-p]
+[._]s[a-rt-v][a-z]
+[._]ss[a-gi-z]
+[._]sw[a-p]
+Session.vim
+Sessionx.vim
+.netrwhist
+*~
+tags
+[._]*.un~
+
+# Emacs
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+.org-id-locations
+*_archive
+*_flymake.*
+/eshell/history
+/eshell/lastdir
+/elpa/
+*.rel
+/auto/
+.cask/
+dist/
+flycheck_*.el
+.projectile
+.dir-locals.el
+/network-security.data
+
+# VSCode
+.vscode/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+.history/
+*.vsix
+
+# JetBrains IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.idea_modules/
+atlassian-ide-plugin.xml
+com_crashlytics_export_strings.xml
+crashlytics.properties
+crashlytics-build.properties
+fabric.properties
+
+# Sublime Text
+*.tmlanguage.cache
+*.tmPreferences.cache
+*.stTheme.cache
+*.sublime-workspace
+*.sublime-project
+sftp-config.json
+sftp-config-alt*.json
+Package Control.last-run
+Package Control.ca-list
+Package Control.ca-bundle
+Package Control.system-ca-bundle
+Package Control.cache/
+Package Control.ca-certs/
+Package Control.merged-ca-bundle
+Package Control.user-ca-bundle
+oscrypto-ca-bundle.crt
+bh_unicode_properties.cache
+GitHub.sublime-settings
+
+# ====================
+# BUILD ARTIFACTS
+# ====================
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+.pnpm-debug.log*
+log/*.log
+/log
+
+# Dependency directories
+node_modules/
+jspm_packages/
+/bower_components/
+
+# Build outputs
+dist/
+build/
+out/
+target/
+*.dll
+*.exe
+*.o
+*.so
+*.dylib
+
+# Ruby/Rails specific
+.bundle
+.byebug_history
+rerun.txt
+tmp/**/*
+db/*.sqlite3
+
+# Python compiled files
+*.pyc
+
+# Tags file (for ctags)
+/tags
+
+# ====================
+# TEMPORARY FILES
+# ====================
+
+# General
+tmp/
+temp/
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+*.orig
+
+# Cache directories
+.cache/
+.parcel-cache/
+.turbo/
+.webpack/
+.rollup.cache/
+
+# ====================
+# MISCELLANEOUS
+# ====================
+
+# Archive files (usually not needed in repos)
+*.tar
+*.tar.gz
+*.zip
+*.7z
+*.rar
+
+# Database dumps
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+
+# Coverage reports
+coverage/
+*.lcov
+.nyc_output/
+
+# Terraform
+**/.terraform/*
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc

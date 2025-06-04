@@ -1,0 +1,167 @@
+# zshrc
+# Author: Don Dikaio <git@dika.io>
+# Source: https://github.com/dikaio/dotfiles
+# ===========================================
+
+# ====================
+# HISTORY CONFIGURATION
+# ====================
+
+# Enable history with better settings
+export HISTFILE="${HOME}/.zsh_history"
+export HISTSIZE=50000
+export SAVEHIST=10000
+setopt EXTENDED_HISTORY          # Write timestamp to history
+setopt HIST_EXPIRE_DUPS_FIRST    # Expire duplicate entries first
+setopt HIST_IGNORE_DUPS          # Don't record duplicate entries
+setopt HIST_IGNORE_SPACE         # Don't record entries starting with space
+setopt HIST_VERIFY               # Show command before executing from history
+setopt SHARE_HISTORY             # Share history between sessions
+
+# ====================
+# ENVIRONMENT WARNINGS & TELEMETRY
+# ====================
+
+# Disable various tool warnings and telemetry for cleaner output
+export HOMEBREW_NO_ENV_HINTS=1                          # Homebrew environment hints
+export NODE_NO_WARNINGS=1                               # Node.js warnings
+export PYTHONWARNINGS="ignore:Unverified HTTPS request" # Python HTTPS warnings
+export RUBYOPT="--disable-gems"                         # Ruby gem warnings
+export DISABLE_TELEMETRY=1                              # General telemetry
+export DISABLE_ERROR_REPORTING=1                        # Sentry error reporting
+
+# Compiler flags for handling duplicate libraries (macOS specific)
+export CGO_LDFLAGS="-Wl,-no_warn_duplicate_libraries"
+
+# Claude CLI Configuration
+export CLAUDE_CONFIG_DIR="${HOME}/.config/claude"
+
+# GPG Terminal Configuration
+# Required for GPG signing in terminal
+export GPG_TTY=$(tty)
+
+# ====================
+# COMPILER & BUILD CONFIGURATION
+# ====================
+
+# PostgreSQL 16 specific paths (adjust version as needed)
+if [[ -d "/opt/homebrew/opt/postgresql@16" ]]; then
+  export LDFLAGS="-L/opt/homebrew/opt/postgresql@16/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/postgresql@16/include"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig"
+fi
+
+# ====================
+# PATH CONFIGURATION
+# ====================
+
+# Start with clean base PATH
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+
+# Add Homebrew to PATH first (if on macOS)
+if [[ -d "/opt/homebrew/bin" ]]; then
+  export PATH="/opt/homebrew/bin:/opt/homebrew/sbin:$PATH"
+elif [[ -d "/usr/local/homebrew/bin" ]]; then
+  export PATH="/usr/local/homebrew/bin:/usr/local/homebrew/sbin:$PATH"
+fi
+
+# ASDF Version Manager - moved to lazy loading
+# See ~/.zshrc.d/lazy-loading.zsh for ASDF configuration
+
+# Language-specific package managers
+[[ -d "${CARGO_HOME:-$HOME/.cargo}/bin" ]] && export PATH="${CARGO_HOME:-$HOME/.cargo}/bin:$PATH"
+[[ -d "$HOME/go/bin" ]] && export PATH="$HOME/go/bin:$PATH"
+
+# Bun JavaScript Runtime
+if [[ -d "$HOME/.bun" ]]; then
+  export BUN_INSTALL="$HOME/.bun"
+  export PATH="$BUN_INSTALL/bin:$PATH"
+  # Bun completions moved to lazy loading
+fi
+
+# Development tools
+[[ -d "$HOME/.codeium/windsurf/bin" ]] && export PATH="$HOME/.codeium/windsurf/bin:$PATH"
+[[ -d "$HOME/.lmstudio/bin" ]] && export PATH="$PATH:$HOME/.lmstudio/bin"
+
+# User binaries (highest priority)
+[[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
+[[ -d "$HOME/.bin" ]] && export PATH="$HOME/.bin:$PATH"
+
+# Remove duplicate PATH entries
+typeset -U PATH
+
+# ====================
+# SHELL COMPLETIONS
+# ====================
+
+# Completions moved to lazy loading for better performance
+# See ~/.zshrc.d/lazy-loading.zsh
+
+# Enable better completion options
+# zstyle ':completion:*' menu select                      # Enable menu selection
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'    # Case-insensitive completion
+# zstyle ':completion:*' list-colors ''                   # Colorize completions
+# zstyle ':completion:*:descriptions' format '%U%F{green}%d%f%u'  # Format descriptions
+
+# ====================
+# FUZZY FINDER (FZF)
+# ====================
+
+# FZF moved to lazy loading for better performance
+# See ~/.zshrc.d/lazy-loading.zsh
+
+# ====================
+# ZSH OPTIONS
+# ====================
+
+# Better directory navigation
+setopt AUTO_CD              # Change directory without typing cd
+setopt AUTO_PUSHD           # Push directories onto stack
+setopt PUSHD_IGNORE_DUPS    # Don't push duplicate directories
+setopt PUSHD_SILENT         # Don't print directory stack after pushd/popd
+
+# Enhanced globbing
+setopt EXTENDED_GLOB        # Enable extended globbing patterns
+setopt GLOB_DOTS            # Include dotfiles in globbing
+
+# Job control
+setopt CHECK_JOBS           # Warn about background jobs before exiting
+setopt NO_HUP               # Don't kill background jobs on exit
+
+# Command correction
+# setopt CORRECT              # Suggest corrections for commands
+# setopt CORRECT_ALL          # Suggest corrections for all arguments
+
+# ====================
+# PERFORMANCE OPTIMIZATIONS
+# ====================
+
+# Completion compilation moved to lazy loading
+
+# ====================
+# MODULAR CONFIGURATION
+# ====================
+
+# Load all .zsh files from zshrc.d directory
+if [[ -d ~/.zshrc.d ]]; then
+  for file in ~/.zshrc.d/*.zsh(N); do
+    [[ -r "$file" ]] && source "$file"
+  done
+fi
+
+# ====================
+# ALIASES
+# ====================
+
+# Load aliases
+[[ -f ~/.aliases ]] && source ~/.aliases
+
+# ====================
+# ADDITIONAL CONFIGURATIONS
+# ====================
+
+# Load any local/private configurations
+# [[ -f ~/.zshrc.private ]] && source ~/.zshrc.private
+
+# Load work-specific configurations
+# [[ -f ~/.zshrc.work ]] && source ~/.zshrc.work

@@ -1,0 +1,367 @@
+" vimrc.local
+" Author: Don Dikaio <git@dika.io>
+" Source: https://github.com/dikaio/dotfiles
+" ===========================================
+
+" ====================
+" GENERAL SETTINGS
+" ====================
+
+" Enable syntax highlighting
+syntax enable
+
+" Enable file type detection and plugins
+filetype plugin indent on
+
+" Load matchit.vim for better % matching
+if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+  runtime! macros/matchit.vim
+endif
+
+" Better defaults
+set encoding=utf-8                      " Use UTF-8 encoding
+set fileencoding=utf-8                  " Save files as UTF-8
+set backspace=indent,eol,start          " Make backspace work as expected
+set history=1000                        " Remember more commands
+set showcmd                             " Show incomplete commands
+set showmode                            " Show current mode
+set gcr=a:blinkon0                      " Disable cursor blink
+set visualbell                          " No sounds
+set autoread                            " Reload files changed outside vim
+set autowrite                           " Automatically :write before running commands
+set hidden                              " Allow hidden buffers
+set ruler                               " Show cursor position
+set laststatus=2                        " Always show status line
+set confirm                             " Ask to save changes
+set mousemodel=popup                    " Right-click pops up context menu
+set t_Co=256                            " Use 256 colors
+set termguicolors                       " Enable true colors support
+set modelines=0                         " Disable modelines as a security precaution
+set nomodeline
+set nojoinspaces                        " Don't use two spaces after punctuation when joining lines
+
+" ====================
+" UI CONFIGURATION
+" ====================
+
+" Line numbers and display
+set number                              " Show line numbers
+set relativenumber                      " Relative line numbers
+set numberwidth=5                       " Width of numbers column
+set cursorline                          " Highlight current line
+set colorcolumn=80,120                  " Show column markers
+set signcolumn=yes                      " Always show sign column
+
+" Search settings
+set incsearch                           " Find as you type
+set hlsearch                            " Highlight search results
+set ignorecase                          " Case insensitive search...
+set smartcase                           " ...unless uppercase used
+set magic                               " Enable regex special characters
+
+" Better command line completion
+set wildmenu                            " Visual autocomplete for command menu
+set wildmode=list:longest,full          " Complete files like shell
+set wildignore=*.o,*~,*.pyc             " Ignore compiled files
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+set wildignore+=*/node_modules/*,*/dist/*,*/build/*
+
+" ====================
+" INDENTATION
+" ====================
+
+set autoindent                          " Copy indent from current line
+set smartindent                         " Smart autoindenting
+set smarttab                            " Smart tab handling
+set shiftwidth=2                        " Indent with 2 spaces
+set softtabstop=2                       " Tab key results in 2 spaces
+set tabstop=2                           " Tab equals 2 spaces
+set expandtab                           " Use spaces instead of tabs
+set shiftround                          " Round indent to multiple of shiftwidth
+
+" Display extra whitespace
+set list listchars=tab:»·,trail:·,nbsp:·
+
+" Language-specific indentation
+augroup IndentationSettings
+  autocmd!
+  autocmd FileType python setlocal shiftwidth=4 softtabstop=4 tabstop=4
+  autocmd FileType go setlocal noexpandtab shiftwidth=4 softtabstop=4 tabstop=4
+  autocmd FileType make setlocal noexpandtab
+  autocmd FileType yaml setlocal shiftwidth=2 softtabstop=2 tabstop=2
+augroup END
+
+" ====================
+" FOLDING
+" ====================
+
+set foldmethod=indent                   " Fold based on indent
+set foldnestmax=3                       " Deepest fold is 3 levels
+set nofoldenable                        " Don't fold by default
+set foldlevel=1                         " Start with fold level 1
+
+" ====================
+" SPLITS
+" ====================
+
+set splitbelow                          " Open new splits below
+set splitright                          " Open new splits to the right
+
+" ====================
+" BACKUP & SWAP
+" ====================
+
+set nobackup                            " Don't create backup files
+set nowritebackup                       " Don't create backup before overwriting
+set noswapfile                          " Don't create swap files
+
+" Alternative: Use backup/swap with better organization
+" set backup
+" set backupdir=~/.vim/backup//
+" set directory=~/.vim/swap//
+" set undodir=~/.vim/undo//
+
+" ====================
+" PERFORMANCE
+" ====================
+
+set lazyredraw                          " Don't redraw during macros
+set ttyfast                             " Faster terminal connection
+set synmaxcol=300                       " Syntax highlight only first 300 columns
+
+" ====================
+" COMPLETION & SPELL
+" ====================
+
+set complete+=kspell                    " Autocomplete with dictionary words when spell check is on
+set spellfile=$HOME/.vim-spell-en.utf-8.add  " Set spellfile location
+set diffopt+=vertical                   " Always use vertical diffs
+
+" ====================
+" KEY MAPPINGS
+" ====================
+
+" Set leader key
+let mapleader = " "
+let g:mapleader = " "
+
+" Quick save and quit
+nnoremap <leader>w :w<CR>
+nnoremap <leader>q :q<CR>
+nnoremap <leader>x :x<CR>
+nnoremap <leader>Q :qa!<CR>
+
+" Better window navigation
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" Clear search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Switch between the last two files
+nnoremap <leader><leader> <C-^>
+
+" Toggle paste mode
+set pastetoggle=<F2>
+
+" ====================
+" NERDTREE
+" ====================
+
+" NERDTree key mappings
+nnoremap <leader>n :NERDTreeFocus<CR>
+nnoremap <C-n> :NERDTree<CR>
+nnoremap <C-t> :NERDTreeToggle<CR>
+nnoremap <C-f> :NERDTreeFind<CR>
+
+" NERDTree settings
+let g:NERDTreeShowHidden = 1            " Show hidden files
+let g:NERDTreeMinimalUI = 1             " Remove help text
+let g:NERDTreeDirArrows = 1             " Use arrows for directories
+let g:NERDTreeIgnore = ['\.pyc$', '\~$', '\.git$', 'node_modules', 'dist']
+let g:NERDTreeStatusline = ''           " Remove statusline
+
+" Close vim if NERDTree is the only window left
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" ====================
+" LANGUAGE SUPPORT
+" ====================
+
+" OCaml
+" Check if OPAM is installed before setting paths
+if isdirectory(expand("~/.opam"))
+  set rtp^="/Users/dikaio/.opam/default/share/ocp-indent/vim"
+  if executable('opam')
+    let g:opamshare = substitute(system('opam var share'),'\n$','','''')
+    execute "set rtp+=" . g:opamshare . "/merlin/vim"
+  endif
+endif
+
+" Rust
+let g:rustfmt_autosave = 1              " Format on save
+let g:rust_clip_command = 'pbcopy'      " macOS clipboard
+
+" Svelte
+let g:svelte_indent_script = 0
+let g:svelte_indent_style = 0
+let g:svelte_preprocessors = ['typescript']
+
+" CSS
+augroup VimCSS3Syntax
+  autocmd!
+  autocmd FileType css setlocal iskeyword+=-
+  autocmd FileType scss setlocal iskeyword+=-
+augroup END
+
+" ====================
+" PRETTIER
+" ====================
+
+" Load all packages
+packloadall
+
+" Prettier key mapping
+nmap <Leader>py <Plug>(Prettier)
+
+" Prettier settings
+let g:prettier#autoformat = 1
+let g:prettier#autoformat_require_pragma = 0
+let g:prettier#autoformat_config_present = 1
+let g:prettier#exec_cmd_async = 1
+
+" Use project-specific prettier if available
+if executable('./node_modules/.bin/prettier')
+  let g:prettier#exec_cmd_path = "./node_modules/.bin/prettier"
+elseif executable('prettier')
+  let g:prettier#exec_cmd_path = "prettier"
+endif
+
+" Prettier config
+let g:prettier#config#print_width = 'auto'
+let g:prettier#config#tab_width = 'auto'
+let g:prettier#config#use_tabs = 'auto'
+let g:prettier#config#parser = ''
+let g:prettier#config#config_precedence = 'file-override'
+let g:prettier#config#prose_wrap = 'preserve'
+let g:prettier#config#html_whitespace_sensitivity = 'css'
+let g:prettier#config#require_pragma = 'false'
+let g:prettier#config#end_of_line = get(g:, 'prettier#config#end_of_line', 'lf')
+
+" ====================
+" COLOR SCHEME
+" ====================
+
+" Set color scheme with fallback
+try
+  colorscheme base16-gruvbox-dark-hard
+catch /^Vim\%((\a\+)\)\=:E185/
+  " Fallback if color scheme not found
+  colorscheme desert
+endtry
+
+" ====================
+" FILE TYPE DETECTION
+" ====================
+
+" CSV file detection
+if !exists("did_load_csvfiletype")
+  let did_load_csvfiletype=1
+  
+  augroup filetypedetect
+    autocmd!
+    autocmd BufRead,BufNewFile *.csv,*.dat setfiletype csv
+    autocmd BufRead,BufNewFile *.json setfiletype json
+    autocmd BufRead,BufNewFile *.md setfiletype markdown
+    autocmd BufRead,BufNewFile *.tsx setfiletype typescriptreact
+    autocmd BufRead,BufNewFile *.jsx setfiletype javascriptreact
+    autocmd BufRead,BufNewFile .env* setfiletype sh
+  augroup END
+endif
+
+" ====================
+" AUTOCOMMANDS
+" ====================
+
+augroup AutoCommands
+  autocmd!
+  
+  " Return to last edit position when opening files
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+  
+  " Remove trailing whitespace on save
+  autocmd BufWritePre * :%s/\s\+$//e
+  
+  " Auto-reload vimrc when it's saved
+  autocmd BufWritePost ~/.vimrc.local source ~/.vimrc.local
+  
+  " Highlight TODO, FIXME, NOTE, etc.
+  autocmd Syntax * syn match MyTodo /\v<(FIXME|NOTE|TODO|HACK|XXX):/ containedin=.*Comment
+  highlight MyTodo guifg=#000000 guibg=#ffff00
+augroup END
+
+" ====================
+" FUNCTIONS
+" ====================
+
+" Toggle between number and relativenumber
+function! ToggleNumber()
+  if(&relativenumber == 1)
+    set norelativenumber
+    set number
+  else
+    set relativenumber
+  endif
+endfunction
+nnoremap <leader>tn :call ToggleNumber()<CR>
+
+" Create directory if it doesn't exist
+function! s:MkNonExDir(file, buf)
+  if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+    let dir=fnamemodify(a:file, ':h')
+    if !isdirectory(dir)
+      call mkdir(dir, 'p')
+    endif
+  endif
+endfunction
+augroup BWCCreateDir
+  autocmd!
+  autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
+
+" Better tab completion wrapper
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<Tab>"
+    else
+        return "\<C-p>"
+    endif
+endfunction
+inoremap <Tab> <C-r>=InsertTabWrapper()<CR>
+inoremap <S-Tab> <C-n>
+
+" ====================
+" ABBREVIATIONS
+" ====================
+
+" Common typos
+iabbrev teh the
+iabbrev Teh The
+iabbrev taht that
+iabbrev Taht That
+iabbrev adn and
+iabbrev Adn And
+iabbrev waht what
+iabbrev Waht What
+
+" ====================
+" LOCAL OVERRIDES
+" ====================
+
+" Source local vim config if it exists
+if filereadable(expand("~/.vimrc.private"))
+  source ~/.vimrc.private
+endif

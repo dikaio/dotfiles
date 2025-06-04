@@ -1,0 +1,336 @@
+# gitconfig.local
+# Author: Don Dikaio <git@dika.io>
+# Source: https://github.com/dikaio/dotfiles
+# ===========================================
+
+# ====================
+# USER CONFIGURATION
+# ====================
+[user]
+	name = Don Dikaio
+	email = d@dika.io
+	# signingkey = YOUR_GPG_KEY_ID  # Uncomment and set for GPG signing
+
+# ====================
+# INIT CONFIGURATION
+# ====================
+[init]
+	defaultBranch = main
+
+# ====================
+# CORE SETTINGS
+# ====================
+[core]
+	# Use your preferred editor
+	editor = vim
+	
+	# Global gitignore file
+	excludesfile = ~/.gitignore.local
+	
+	# Better diff algorithm
+	algorithm = histogram
+	
+	# Prevent issues with file permissions
+	filemode = false
+	
+	# Handle line endings properly
+	autocrlf = input
+	
+	# Enable parallel index preload for operations like git diff
+	preloadindex = true
+	
+	# Better rename detection
+	renames = copies
+	
+	# Performance settings
+	fscache = true                # Enable filesystem cache
+	checkoutWorkers = 0           # Use all CPU cores for parallel checkout
+
+# ====================
+# COLOR CONFIGURATION
+# ====================
+[color]
+	ui = auto
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	grep = auto
+
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+
+[color "status"]
+	added = green
+	changed = yellow
+	untracked = red
+
+[color "branch"]
+	current = green bold
+	local = yellow
+	remote = red
+
+# ====================
+# PRETTY FORMATS
+# ====================
+[pretty]
+	# Colored one-line format
+	colored = format:%Cred%h%Creset %s %Cgreen(%cr) %C(bold blue)%an%Creset
+	
+	# Detailed format with graph
+	detailed = format:%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)
+	
+	# Changelog style
+	changelog = format:* %s (%h)
+
+# ====================
+# ALIASES
+# ====================
+[alias]
+	# Status shortcuts
+	s = status -sb
+	st = status
+	
+	# Adding/staging
+	a = add
+	aa = add -A
+	ap = add -p  # Interactive staging
+	
+	# Committing
+	c = commit
+	cm = commit -m
+	ca = commit -am
+	amend = commit --amend --no-edit
+	reword = commit --amend
+	
+	# Branching
+	b = branch
+	ba = branch -a
+	bd = branch -d
+	bD = branch -D
+	co = checkout
+	cob = checkout -b
+	
+	# Logging
+	l = log --pretty=colored --graph
+	lg = log --graph --pretty=detailed --abbrev-commit
+	ll = log --pretty=detailed --numstat
+	last = log -1 HEAD
+	recent = log --oneline -10
+	
+	# Diffing
+	d = diff
+	dc = diff --cached
+	ds = diff --stat
+	
+	# Merging/Rebasing
+	m = merge
+	mt = mergetool
+	rb = rebase
+	rbi = rebase -i
+	rbc = rebase --continue
+	rba = rebase --abort
+	
+	# Remote operations
+	f = fetch
+	fo = fetch origin
+	p = push
+	pl = pull
+	pu = push -u origin HEAD
+	
+	# Stashing
+	ss = stash save
+	sl = stash list
+	sp = stash pop
+	sa = stash apply
+	sd = stash drop
+	
+	# Searching
+	grep = grep -n
+	find = !git ls-files | grep -i
+	
+	# Utility
+	aliases = config --get-regexp alias
+	whoami = config user.email
+	unstage = reset HEAD --
+	uncommit = reset --soft HEAD~1
+	wip = !git add -A && git commit -m "WIP"
+	undo = reset HEAD~1 --mixed
+	
+	# Cleanup
+	cleanup = !git branch --merged | grep -v '\\*\\|main\\|master\\|develop' | xargs -n 1 git branch -d
+	prune-branches = !git remote prune origin && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -D
+	
+	# Additional useful aliases
+	branches = for-each-ref --sort=-committerdate --format='%(color:blue)%(authordate:relative)\t%(color:red)%(authorname)\t%(color:white)%(color:bold)%(refname:short)' refs/remotes
+	pf = push --force-with-lease
+
+# ====================
+# MERGE & DIFF TOOLS
+# ====================
+[merge]
+	# Only allow fast-forward merges by default
+	ff = only
+	
+	# Better merge conflict style
+	conflictstyle = diff3
+	
+	# Use Kaleidoscope for merging (uncomment if you have it)
+	# tool = ksdiff
+
+[diff]
+	# Use Kaleidoscope for diffs
+	tool = ksdiff
+	
+	# Better diff output
+	mnemonicprefix = true
+	renames = copies
+	
+	# Show submodule changes
+	submodule = log
+	
+	# Show moved lines in different color
+	colorMoved = zebra
+
+[difftool]
+	prompt = false
+
+[mergetool]
+	prompt = false
+	keepBackup = false
+
+# Kaleidoscope configuration
+[difftool "ksdiff"]
+	cmd = ksdiff --partial-changeset --relative-path \"$MERGED\" -- \"$LOCAL\" \"$REMOTE\"
+
+[mergetool "ksdiff"]
+	cmd = ksdiff --merge --output \"$MERGED\" --base \"$BASE\" -- \"$LOCAL\" --snapshot \"$REMOTE\" --snapshot
+	trustExitCode = true
+
+# ====================
+# PUSH CONFIGURATION
+# ====================
+[push]
+	# Push only current branch
+	default = current
+	
+	# Push tags automatically
+	followTags = true
+	
+	# Enable push options
+	pushOption = merge_request.create
+
+# ====================
+# PULL CONFIGURATION
+# ====================
+[pull]
+	# Rebase by default when pulling
+	rebase = true
+	
+	# Preserve merges when rebasing (use rebase.autosquash instead)
+
+# ====================
+# FETCH CONFIGURATION
+# ====================
+[fetch]
+	# Remove deleted remote branches
+	prune = true
+	
+	# Remove deleted tags
+	pruneTags = true
+
+# ====================
+# REBASE CONFIGURATION
+# ====================
+[rebase]
+	# Automatically stash/unstash before rebasing
+	autoStash = true
+	
+	# Show stat after rebase
+	stat = true
+	
+	# Automatically squash fixup! commits
+	autosquash = true
+
+# ====================
+# COMMIT CONFIGURATION
+# ====================
+[commit]
+	# Show diff in commit message editor
+	verbose = true
+	
+	# Use commit message template
+	template = ~/.gitmessage
+	
+	# Sign commits with GPG (uncomment to enable)
+	# gpgsign = true
+
+# ====================
+# STATUS CONFIGURATION
+# ====================
+[status]
+	# Show individual files in untracked directories
+	showUntrackedFiles = all
+	
+	# Show submodule summary
+	submoduleSummary = true
+
+# ====================
+# LOG CONFIGURATION
+# ====================
+[log]
+	# Show dates in local timezone
+	date = local
+	
+	# Follow renames
+	follow = true
+
+# ====================
+# GREP CONFIGURATION
+# ====================
+[grep]
+	lineNumber = true
+	extendedRegexp = true
+
+# ====================
+# HELP CONFIGURATION
+# ====================
+[help]
+	# Correct typos automatically
+	autocorrect = 10
+
+# ====================
+# URL SHORTCUTS
+# ====================
+[url "git@github.com:"]
+	insteadOf = gh:
+	insteadOf = github:
+
+[url "git@gitlab.com:"]
+	insteadOf = gl:
+	insteadOf = gitlab:
+
+[url "git@bitbucket.org:"]
+	insteadOf = bb:
+	insteadOf = bitbucket:
+
+# ====================
+# PERFORMANCE
+# ====================
+[pack]
+	threads = 0  # Use all CPU cores
+
+# Core settings merged with main [core] section above
+
+# ====================
+# LARGE FILE SUPPORT
+# ====================
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

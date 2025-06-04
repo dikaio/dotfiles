@@ -1,0 +1,177 @@
+# psqlrc.local
+# Author: Don Dikaio <git@dika.io>
+# Source: https://github.com/dikaio/dotfiles
+# ===========================================
+#
+# PostgreSQL client configuration
+# This file customizes the psql interactive experience
+
+# Suppress startup messages while configuring
+\set QUIET 1
+
+# ====================
+# PROMPT CONFIGURATION
+# ====================
+
+# Set colored prompts for better visibility
+# Format: user@database[status]#
+# Green for normal, red for error states
+\set PROMPT1 '%[%033[1;32m%]%n@%/%[%033[0m%]%R%# '
+\set PROMPT2 '%[%033[1;33m%][more]%[%033[0m%] %R > '
+
+# Alternative prompts (uncomment to use)
+# Includes transaction status
+# \set PROMPT1 '%[%033[1;32m%]%n@%/%[%033[0m%] %x%R%# '
+
+# Minimalist prompt
+# \set PROMPT1 '%n@%/:%R%# '
+
+# ====================
+# DISPLAY SETTINGS
+# ====================
+
+# Show query execution time for all queries
+\timing on
+
+# Auto-expand wide tables for better readability
+# auto = automatically switch between normal and expanded
+# on = always use expanded
+# off = never use expanded
+\x auto
+
+# Display NULL values clearly
+\pset null '¤'
+
+# Use Unicode box drawing characters for prettier tables
+\pset linestyle unicode
+\pset unicode_border_linestyle single
+\pset unicode_column_linestyle single
+\pset unicode_header_linestyle double
+
+# Set border style (0=none, 1=internal, 2=all)
+\pset border 2
+
+# Format numbers with comma separators
+\pset numericlocale on
+
+# Set pager behavior
+# always = always use pager
+# on = use pager for long output
+# off = never use pager
+\pset pager always
+
+# Use less as pager with better options
+\setenv PAGER 'less -iMSx4 -FX'
+
+# ====================
+# HISTORY SETTINGS
+# ====================
+
+# Save command history
+\set HISTFILE ~/.psql_history
+
+# Increase history size
+\set HISTSIZE 10000
+
+# Ignore duplicate entries in history
+\set HISTCONTROL ignoredups
+
+# Ignore spaces at the beginning of commands
+\set HISTCONTROL ignorespace
+
+# Combine both options
+\set HISTCONTROL ignoreboth
+
+# ====================
+# QUERY SHORTCUTS
+# ====================
+
+# Show current database settings
+\set settings 'SELECT name, setting, unit, short_desc FROM pg_settings;'
+
+# Show database sizes
+\set dbsize 'SELECT datname, pg_size_pretty(pg_database_size(datname)) as size FROM pg_database ORDER BY pg_database_size(datname) DESC;'
+
+# Show table sizes in current database
+\set tablesize 'SELECT schemaname, tablename, pg_size_pretty(pg_total_relation_size(schemaname||''.''||tablename)) AS size FROM pg_tables ORDER BY pg_total_relation_size(schemaname||''.''||tablename) DESC;'
+
+# Show index sizes
+\set indexsize 'SELECT schemaname, tablename, indexname, pg_size_pretty(pg_relation_size(indexrelid)) AS size FROM pg_stat_user_indexes ORDER BY pg_relation_size(indexrelid) DESC;'
+
+# Show active queries
+\set activity 'SELECT pid, age(clock_timestamp(), query_start), usename, query FROM pg_stat_activity WHERE query != ''<IDLE>'' AND query NOT ILIKE ''%pg_stat_activity%'' ORDER BY query_start DESC;'
+
+# Show blocking queries
+\set blocking 'SELECT blocked_locks.pid AS blocked_pid, blocked_activity.usename AS blocked_user, blocking_locks.pid AS blocking_pid, blocking_activity.usename AS blocking_user, blocked_activity.query AS blocked_statement, blocking_activity.query AS current_statement_in_blocking_process FROM pg_catalog.pg_locks blocked_locks JOIN pg_catalog.pg_stat_activity blocked_activity ON blocked_activity.pid = blocked_locks.pid JOIN pg_catalog.pg_locks blocking_locks ON blocking_locks.locktype = blocked_locks.locktype AND blocking_locks.database IS NOT DISTINCT FROM blocked_locks.database AND blocking_locks.relation IS NOT DISTINCT FROM blocked_locks.relation AND blocking_locks.page IS NOT DISTINCT FROM blocked_locks.page AND blocking_locks.tuple IS NOT DISTINCT FROM blocked_locks.tuple AND blocking_locks.virtualxid IS NOT DISTINCT FROM blocked_locks.virtualxid AND blocking_locks.transactionid IS NOT DISTINCT FROM blocked_locks.transactionid AND blocking_locks.classid IS NOT DISTINCT FROM blocked_locks.classid AND blocking_locks.objid IS NOT DISTINCT FROM blocked_locks.objid AND blocking_locks.objsubid IS NOT DISTINCT FROM blocked_locks.objsubid AND blocking_locks.pid != blocked_locks.pid JOIN pg_catalog.pg_stat_activity blocking_activity ON blocking_activity.pid = blocking_locks.pid WHERE NOT blocked_locks.granted;'
+
+# Show long running queries
+\set long_running 'SELECT pid, now() - pg_stat_activity.query_start AS duration, query FROM pg_stat_activity WHERE (now() - pg_stat_activity.query_start) > interval ''5 minutes'';'
+
+# Show cache hit ratio
+\set cache_hit 'SELECT ''index hit rate'' AS name, (sum(idx_blks_hit)) / nullif(sum(idx_blks_hit + idx_blks_read),0) AS ratio FROM pg_statio_user_indexes UNION ALL SELECT ''table hit rate'' AS name, sum(heap_blks_hit) / nullif(sum(heap_blks_hit) + sum(heap_blks_read),0) AS ratio FROM pg_statio_user_tables;'
+
+# Show unused indexes
+\set unused_indexes 'SELECT schemaname, tablename, indexname, idx_scan FROM pg_stat_user_indexes WHERE idx_scan = 0 ORDER BY schemaname, tablename;'
+
+# Kill a query by PID
+\set kill 'SELECT pg_terminate_backend(:pid);'
+
+# ====================
+# AUTOCOMPLETION
+# ====================
+
+# Use uppercase keywords in autocompletion
+\set COMP_KEYWORD_CASE upper
+
+# Enable verbose error reports
+\set VERBOSITY verbose
+
+# ====================
+# OUTPUT FORMATTING
+# ====================
+
+# Show row count after query execution
+\set SHOW_CONTEXT errors
+
+# Set table format (options: aligned, unaligned, wrapped, html, latex, latex-longtable, troff-ms)
+\pset format aligned
+
+# ====================
+# CONVENIENCE ALIASES
+# ====================
+
+# Clear screen
+\set clear '\\! clear'
+
+# Show all databases
+\set dbs '\\l+'
+
+# Show all tables in current database
+\set tables '\\dt+'
+
+# Show all indexes
+\set indexes '\\di+'
+
+# Show all views
+\set views '\\dv+'
+
+# Show all sequences
+\set sequences '\\ds+'
+
+# Show all functions
+\set functions '\\df+'
+
+# Describe table (usage: :desc tablename)
+\set desc '\\d+'
+
+# ====================
+# STARTUP MESSAGE
+# ====================
+
+\echo 'Welcome to PostgreSQL!'
+\echo 'Type :settings, :activity, :dbsize, :tablesize for useful queries'
+\echo 'Type :clear to clear screen'
+\echo ''
+
+# Re-enable output
+\unset QUIET

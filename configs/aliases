@@ -1,0 +1,386 @@
+# aliases.local
+# Author: Don Dikaio <git@dika.io>
+# Source: https://github.com/dikaio/dotfiles
+# ===========================================
+
+# ====================
+# CORE UNIX UTILITIES
+# ====================
+
+# Editor shortcuts - uses environment variables for flexibility
+alias e="$EDITOR"
+alias v="$VISUAL"
+alias c='cursor'
+
+# Enhanced ls commands with better defaults
+alias ll="ls -alh"        # Human-readable sizes
+alias la="ls -A"          # All files except . and ..
+alias l="ls -CF"          # Classify file types
+
+# Safer file operations with verbose output
+alias ln="ln -v"          # Verbose symlinks
+alias mkdir="mkdir -pv"   # Create parent dirs, verbose
+alias md="mkdir -pv"      # Shorthand for mkdir
+# alias rm="rm -i"          # Interactive mode for safety (commented out for default behavior)
+alias cp="cp -iv"         # Interactive & verbose
+alias mv="mv -iv"         # Interactive & verbose
+
+# Use MacVim in terminal mode if available
+if command -v mvim >/dev/null 2>&1; then
+  alias vim='mvim -v'
+fi
+
+# ====================
+# VIM
+# ====================
+
+alias v='vim'
+alias cleanswap='rm -rfv ~/.vim/tmp/*'
+
+# ====================
+# SHELL MANAGEMENT
+# ====================
+
+# Reload shell configuration
+alias reload='exec $SHELL -l && echo "Shell reloaded!"'
+alias rl='reload'
+alias cl='clear'
+
+# macOS maintenance (runs system cleanup tasks)
+alias clean="sudo periodic daily weekly monthly"
+
+# ====================
+# GIT
+# ====================
+
+# Core git commands
+alias g="git"
+alias gi="git init"
+alias gs="git status -sb"           # Short status with branch info
+alias ga="git add"
+alias gaa="git add -A"              # Add all changes
+alias gd="git diff"
+alias gdc="git diff --cached"       # Diff staged changes
+alias gl="git log --oneline --graph --decorate"
+alias gb="git branch"
+alias gc="git commit -m"
+alias gca="git commit -am"          # Add and commit tracked files
+
+# Branch management
+alias gco="git checkout"
+alias gcb="git checkout -b"         # Create and checkout branch
+alias gm="git merge"
+alias grb="git rebase"
+
+# Remote operations - use current branch
+alias gpull='git pull origin $(git branch --show-current)'
+alias gpush='git push origin $(git branch --show-current)'
+alias gp='git push'
+alias gpu='git push -u origin $(git branch --show-current)'  # Set upstream
+
+# Utilities
+alias greset="git reset --hard HEAD"
+alias gclean="git clean -fd"        # Remove untracked files/dirs
+alias gg="git init && git add -A && git commit -m 'Initial commit'"
+
+# Visual diff/merge tools
+alias gt="git difftool --tool=ksdiff"
+alias gmt="git mergetool"
+alias gd="ksdiff"                   # Direct Kaleidoscope diff
+
+# ====================
+# GITHUB CLI
+# ====================
+
+alias clone="gh repo clone"
+alias create="gh repo create"
+alias view="gh repo view -w"
+alias gist="gh gist create"
+alias pr="gh pr create"
+alias prs="gh pr list"
+alias issue="gh issue create"
+alias issues="gh issue list"
+
+# ====================
+# TMUX
+# ====================
+
+alias tm="tmux"
+alias tls="tmux ls"
+alias tnew="tmux new -s"
+alias ta="tmux a"                   # Attach to last session
+alias tat="tmux a -t"               # Attach to named session
+alias tkill="tmux kill-session -t"
+alias tks="tmux kill-server"        # Kill all sessions
+
+# ====================
+# PYTHON
+# ====================
+
+# Virtual environment management
+alias pyv="python3 -m venv .venv"
+alias pya="source .venv/bin/activate"
+alias pyd="deactivate"
+
+# Package management
+alias pyu="python3 -m pip install --upgrade pip setuptools wheel"
+alias pyi="python3 -m pip install"
+alias pyir="python3 -m pip install -r requirements.txt"
+alias pyf="python3 -m pip freeze > requirements.txt"
+alias pyl="python3 -m pip list"
+alias pyun="python3 -m pip uninstall"
+
+# ====================
+# NODE PACKAGE MANAGERS
+# ====================
+
+# Bun (fast JavaScript runtime)
+alias bi="bun install"
+alias ba="bun add"
+alias bad="bun add -d"              # Add dev dependency
+alias br="bun remove"
+alias bu="bun update"
+alias bul="bun update --latest"     # Update to latest versions
+alias bd="bun dev"
+alias bs="bun start"
+alias bb="bun run build"
+alias bt="bun test"
+alias btw="bun test --watch"
+alias bl="bun run lint"
+alias blf="bun run lint --fix"
+alias bf="bun run format"
+alias bc="bun run check"
+alias bx="bunx"                     # Execute packages
+
+# NPM
+alias ni="npm install"
+alias nis="npm install --save"
+alias nid="npm install --save-dev"
+alias nig="npm install -g"
+alias nun="npm uninstall"
+alias nu="npm update"
+alias nr="npm run"
+alias ns="npm start"
+alias nt="npm test"
+alias ntw="npm test -- --watch"
+alias nb="npm run build"
+alias nd="npm run dev"
+alias nl="npm run lint"
+alias nlf="npm run lint:fix"
+alias nf="npm run format"
+alias nc="npm run check"
+alias nci="npm ci"                  # Clean install from lock file
+alias nau="npm audit"
+alias nauf="npm audit fix"
+
+# pnpm (efficient package manager)
+alias pi="pnpm install"
+alias pa="pnpm add"
+alias pad="pnpm add -D"             # Add dev dependency
+alias pr="pnpm remove"
+alias pu="pnpm update"
+alias pui="pnpm update --interactive"
+alias pul="pnpm update --latest"
+alias px="pnpm dlx"                 # Execute packages
+alias pd="pnpm dev"
+alias ps="pnpm start"
+alias pb="pnpm build"
+alias pt="pnpm test"
+alias ptw="pnpm test --watch"
+alias pl="pnpm lint"
+alias plf="pnpm lint --fix"
+alias pf="pnpm format"
+alias pc="pnpm check"
+alias pstore="pnpm store prune"     # Clean pnpm store
+
+# ====================
+# GO
+# ====================
+
+alias grm="go run main.go"
+alias gmt="go mod tidy"
+alias gmv="go mod vendor"
+alias gmi="go mod init"
+alias gt="go test ./..."
+alias gtv="go test -v ./..."
+alias gb="go build"
+alias gf="go fmt ./..."
+alias gl="golangci-lint run"
+
+# ====================
+# WEB DEVELOPMENT
+# ====================
+
+# Lighthouse performance testing
+alias lh="lighthouse"
+alias lhm="lighthouse --view"       # Open report after test
+
+# Quick localhost access
+alias 3000="open http://localhost:3000"
+alias 3001="open http://localhost:3001"
+alias 5000="open http://localhost:5000"
+alias 5173="open http://localhost:5173"  # Vite default
+alias 8080="open http://localhost:8080"
+
+# Browser launchers (functions for flexibility)
+safari() { open -a "Safari" "${1:-.}"; }
+firefox() { open -a "Firefox" "${1:-.}"; }
+chrome() { open -a "Google Chrome" "${1:-.}"; }
+opera() { open -a "Opera" "${1:-.}"; }
+edge() { open -a "Microsoft Edge" "${1:-.}"; }
+
+# ====================
+# UTILITIES
+# ====================
+
+# Vim-like terminal commands
+alias :q='exit'
+alias :e='vim'
+alias :w='echo "Already saved ;)"'
+
+# Tree visualization with depth limits
+alias t='tree -L 1 -C'              # Colorized output
+alias tt='tree -L 2 -C'
+alias ttt='tree -L 3 -C'
+alias tttt='tree -L 4 -C'
+alias ta='tree -a -L 2 -C'          # Show hidden files
+
+# System maintenance scripts
+alias update='sh ~/Documents/Apps/Scripts/update.sh'
+alias clean='sh ~/Documents/Apps/Scripts/clean.sh'
+alias sanitize='sh ~/Documents/Apps/Scripts/sanitize.sh'
+alias pull='sh ~/Documents/Apps/Scripts/pull.sh'
+
+# Project cleanup - remove common build artifacts
+alias nom="find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
+alias cleancache="rm -rf .cache .turbo .next dist build coverage"
+alias cleanall="nom && cleancache"
+
+# ====================
+# SYSTEM ADMINISTRATION
+# ====================
+
+# Pretty print the PATH
+alias path='echo $PATH | tr -s ":" "\n"'
+
+# Enhanced system monitoring
+alias top="htop || top"             # Use htop if available
+alias gpu="nvtop || nvidia-smi"     # GPU monitoring
+alias ports="lsof -i -P -n"         # Show open ports
+alias myip="curl -s https://api.ipify.org && echo"
+alias localip="ipconfig getifaddr en0"
+
+# DNS and network utilities
+alias dig="dig +short"
+alias digg="dig +nocmd any +noall +answer"  # Full DNS info
+alias flush="dscacheutil -flushcache"        # Flush DNS cache
+
+# Security
+alias secret="openssl rand -base64 32"
+alias password="openssl rand -base64 16"
+alias sha="shasum -a 256"
+alias pubkey="cat ~/.ssh/id_ed25519.pub"
+alias ssh-copy='pbcopy < ~/.ssh/id_ed25519.pub && echo "SSH key copied to clipboard"'
+
+# SSH key deployment function
+ssh-setup() {
+  if [ -z "$1" ]; then
+    echo "Usage: ssh-setup user@host"
+    return 1
+  fi
+  cat ~/.ssh/id_ed25519.pub | ssh "$1" "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 700 ~/.ssh && chmod 600 ~/.ssh/authorized_keys"
+}
+
+# ====================
+# CRYPTOCURRENCY
+# ====================
+
+# Real-time crypto prices with better formatting
+alias btc='curl -s https://api.coinbase.com/v2/prices/BTC-USD/spot | jq -r "\"BTC: $\" + .data.amount"'
+alias eth='curl -s https://api.coinbase.com/v2/prices/ETH-USD/spot | jq -r "\"ETH: $\" + .data.amount"'
+alias sol='curl -s https://api.coinbase.com/v2/prices/SOL-USD/spot | jq -r "\"SOL: $\" + .data.amount"'
+
+# Combined crypto prices
+alias crypto='echo "Current prices:" && btc && eth && sol'
+
+# ====================
+# FILE & DIRECTORY NAVIGATION
+# ====================
+
+# Clipboard utilities
+alias cpwd="pwd | tr -d '\n' | pbcopy && echo 'Current directory copied to clipboard'"
+alias cpath="echo $PATH | tr ':' '\n'"  # Display PATH in readable format
+
+# Directory navigation
+alias ..='cd ..'
+alias ...='cd ../..'
+alias ....='cd ../../..'
+alias .....='cd ../../../..'
+alias -- -='cd -'                   # Go to previous directory
+
+# Common directory shortcuts
+alias dl='cd ~/Downloads'
+alias dt='cd ~/Desktop'
+alias pj='cd ~/Projects'
+alias df='cursor ~/.dotfiles'
+alias tmp='cd /tmp'
+alias o='open .'                    # Open current directory in Finder
+
+# Code example directories
+alias tscode='cd ~/Code/typescript && ls'
+alias gocode='cd ~/Code/go && ls'
+alias pycode='cd ~/Code/python && ls'
+alias rbcode='cd ~/Code/ruby && ls'
+
+# ====================
+# ENHANCED LS
+# ====================
+
+# Detect ls flavor and set color flag
+if ls --color >/dev/null 2>&1; then
+  # GNU ls
+  colorflag="--color"
+  export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
+else
+  # macOS/BSD ls
+  colorflag="-G"
+  export LSCOLORS="Exfxcxdxbxegedabagacad"
+fi
+
+# List files with better defaults
+alias l="ls -lhF ${colorflag}"      # Human-readable, classify
+alias la="ls -lahF ${colorflag}"    # All files, human-readable
+alias lsd="ls -lF ${colorflag} | grep '^d'"  # Directories only
+alias lst="ls -lahFt ${colorflag}"  # Sort by time, newest first
+alias lss="ls -lahFS ${colorflag}"  # Sort by size, largest first
+
+# Always use color output for ls
+alias ls="command ls ${colorflag}"
+
+# ====================
+# macOS SPECIFIC
+# ====================
+
+# Finder
+alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
+alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
+alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
+# Dock
+alias spacer="defaults write com.apple.dock persistent-apps -array-add '{tile-type=\"spacer-tile\";}' && killall Dock"
+alias dock-reset="defaults delete com.apple.dock && killall Dock"
+
+# Screenshots
+alias screenshot-disable-shadow="defaults write com.apple.screencapture disable-shadow -bool true"
+alias screenshot-enable-shadow="defaults write com.apple.screencapture disable-shadow -bool false"
+
+# ====================
+# SETUP UTILITIES
+# ====================
+
+# Install global packages from list
+alias bun-setup="[ -f ~/.bun.local ] && grep -v '^#' ~/.bun.local | grep -v '^$' | xargs bun install -g"
+alias npm-setup="[ -f ~/.npm.local ] && grep -v '^#' ~/.npm.local | grep -v '^$' | xargs npm install -g"
+
+# Quick dotfiles sync
+alias dotsync="cd ~/.dotfiles && git pull && reload"

@@ -1,0 +1,58 @@
+# ===========================================
+# Kerl Configuration for Erlang/OTP
+# Kerl is a tool to easily build and install different versions of Erlang/OTP
+# Author: Don Dikaio <git@dika.io>
+# ===========================================
+
+# Configure build options for Erlang/OTP
+# These options optimize the build for production use
+KERL_CONFIGURE_OPTIONS="--disable-debug \
+  --without-javac \
+  --enable-dynamic-ssl-lib \
+  --enable-shared-zlib \
+  --enable-hipe \
+  --enable-smp-support \
+  --enable-threads \
+  --enable-kernel-poll \
+  --with-wx"
+
+# Build documentation alongside Erlang/OTP
+# Set to 'no' to skip docs and speed up builds
+KERL_BUILD_DOCS=yes
+
+# Additional modern configuration options
+# Uncomment and modify as needed:
+
+# Install manpages alongside documentation
+# KERL_INSTALL_MANPAGES=yes
+
+# Install HTML documentation
+# KERL_INSTALL_HTMLDOCS=yes
+
+# Use a specific OpenSSL version (macOS specific)
+# KERL_USE_AUTOCONF=1
+# KERL_CONFIGURE_DISABLE_APPLICATIONS="odbc"
+
+# Set custom build backend (for faster builds)
+# KERL_BUILD_BACKEND=tarball
+
+# Enable PLT (Persistent Lookup Table) for Dialyzer
+# KERL_BUILD_PLT=yes
+
+# Custom installation directory
+# KERL_DEFAULT_INSTALL_DIR=$HOME/.kerl/installs
+
+# Enable shell history across Erlang versions
+# KERL_ENABLE_PROMPT=yes
+
+# Custom build directory for compilation
+# KERL_BUILD_DIR=$HOME/.kerl/builds
+
+# Download directory for Erlang sources
+# KERL_DOWNLOAD_DIR=$HOME/.kerl/archives
+
+# Git repository settings for building from source
+# KERL_GIT_DIR=$HOME/.kerl/git
+
+# Configure applications to skip during build
+# KERL_CONFIGURE_DISABLE_APPLICATIONS="odbc"

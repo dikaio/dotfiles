@@ -1,0 +1,56 @@
+# ===========================================
+# Default Cargo Crates Installation List
+# These crates will be installed globally via cargo install
+# Author: Don Dikaio <git@dika.io>
+# ===========================================
+
+# Web Development
+actix-web           # High-performance web framework
+
+# Command Line Tools
+ripgrep            # Fast grep alternative (rg)
+fd-find            # Fast find alternative (fd)
+bat                # Cat clone with syntax highlighting
+exa                # Modern ls replacement
+tokei              # Code statistics tool
+hyperfine          # Command-line benchmarking tool
+sd                 # Intuitive find & replace (sed alternative)
+dust               # Intuitive du alternative
+procs              # Modern ps replacement
+bottom             # System monitor (htop alternative)
+tealdeer           # Fast tldr client
+zoxide             # Smarter cd command
+
+# Development Tools
+cargo-watch        # Watch for changes and run commands
+cargo-edit         # Add/remove/upgrade dependencies
+cargo-audit        # Audit dependencies for security vulnerabilities
+cargo-outdated     # Display outdated dependencies
+cargo-tree         # Display dependency tree
+cargo-bloat        # Find what takes most space in executables
+cargo-expand       # Expand macros in source code
+cargo-generate     # Create new projects from templates
+cargo-make         # Task runner and build tool
+
+# Code Quality
+rustfmt            # Rust code formatter
+clippy             # Rust linter
+
+# Cross-compilation
+cross              # Zero setup cross compilation
+
+# Documentation
+mdbook             # Create books from markdown
+
+# Optional: Additional useful crates
+# Uncomment to install:
+
+# cargo-release      # Release automation
+# cargo-deny         # Cargo plugin for linting dependencies
+# cargo-license      # Display licenses of dependencies
+# cargo-update       # Update installed binaries
+# sccache            # Shared compilation cache
+# wasm-pack          # Build and publish WASM packages
+# flamegraph         # Generate flame graphs from profiling data
+# cargo-nextest      # Next-generation test runner
+# cargo-machete      # Find unused dependencies

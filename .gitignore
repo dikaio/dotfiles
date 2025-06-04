@@ -1,0 +1,63 @@
+# .gitignore for dotfiles
+# This helps prevent accidental commits of sensitive files
+
+# Secrets and private configuration
+*.secrets
+*.private
+.env
+.env.*
+!.env.example
+*-private
+*-secret
+
+# Specific secret files
+.zshenv.secrets
+.bashrc.secrets
+.gitconfig.private
+
+# SSH (just in case)
+.ssh/
+id_rsa*
+id_ed25519*
+*.pem
+*.key
+
+# GPG
+*.gpg
+*.asc
+secring.*
+
+# History files
+.*_history
+.zsh_history
+.bash_history
+.psql_history
+.mysql_history
+.lesshst
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Temporary files
+*.swp
+*.swo
+*~
+.#*
+\#*#
+
+# IDE
+.idea/
+.vscode/
+*.sublime-*
+
+# Logs
+*.log
+
+# Other potentially sensitive data
+.aws/credentials
+.netrc
+.authinfo
+.python_history
+.node_repl_history

@@ -1,0 +1,32 @@
+# ===========================================
+# Ruby Gem Configuration
+# Author: Don Dikaio <git@dika.io>
+# Source: https://github.com/dikaio/dotfiles
+# ===========================================
+
+# Skip installation of documentation to speed up gem installs
+# This saves significant time and disk space
+gem: --no-document
+
+# Additional performance and security settings
+install: --no-document
+update: --no-document
+
+# Disable verbose output for cleaner installs
+# verbose: false
+
+# Set custom gem installation path (optional)
+# gemhome: ~/.gems
+
+# Configure gem sources (using HTTPS for security)
+# sources:
+#   - https://rubygems.org/
+
+# Benchmark mode for performance analysis (optional)
+# benchmark: false
+
+# Backtrace on errors for debugging (optional)
+# backtrace: false
+
+# Update sources cache automatically
+# update_sources: true
