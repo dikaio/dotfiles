@@ -327,10 +327,10 @@ alias tmp='cd /tmp'
 alias o='open .'                    # Open current directory in Finder
 
 # Code example directories
-alias tscode='cd ~/Code/typescript && ls'
-alias gocode='cd ~/Code/go && ls'
-alias pycode='cd ~/Code/python && ls'
-alias rbcode='cd ~/Code/ruby && ls'
+alias tscode='c ~/Projects/_code/ts && ls'
+alias gocode='c ~/Projects/_code/go && ls'
+alias pycode='c ~/Projects/_code/python && ls'
+alias rbcode='c ~/Projects/_code/ruby && ls'
 
 # ====================
 # ENHANCED LS
