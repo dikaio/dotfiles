@@ -154,9 +154,6 @@ export LC_ALL="${LC_ALL:-en_US.UTF-8}"
 # DEVELOPMENT DEFAULTS
 # ====================
 
-# Node.js
-export NODE_ENV="${NODE_ENV:-development}"
-
 # Python
 export PYTHONDONTWRITEBYTECODE="${PYTHONDONTWRITEBYTECODE:-1}"
 export PYTHONUNBUFFERED="${PYTHONUNBUFFERED:-1}"
