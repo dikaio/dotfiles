@@ -24,14 +24,20 @@ bindkey "^W" backward-kill-word
 # Use vim keys in tab complete menu (only if menuselect is available)
 # These will be set up when completions are loaded
 __setup_menuselect_keys() {
-  bindkey -M menuselect 'h' vi-backward-char
-  bindkey -M menuselect 'k' vi-up-line-or-history
-  bindkey -M menuselect 'l' vi-forward-char
-  bindkey -M menuselect 'j' vi-down-line-or-history
+  # Ensure complist module is loaded
+  zmodload -i zsh/complist 2>/dev/null || return 1
+  
+  # Check if menuselect keymap exists
+  if bindkey -l 2>/dev/null | grep -q '^menuselect$'; then
+    bindkey -M menuselect 'h' vi-backward-char
+    bindkey -M menuselect 'k' vi-up-line-or-history
+    bindkey -M menuselect 'l' vi-forward-char
+    bindkey -M menuselect 'j' vi-down-line-or-history
+  fi
 }
 
-# Try to set up menu keys if completion system is already loaded
-zmodload -e zsh/complist && __setup_menuselect_keys
+# Don't try to set up menu keys here - wait for lazy loading
+# The lazy-loading.zsh will call this function when completions are loaded
 
 # Edit line in vim with v in normal mode
 autoload -Uz edit-command-line

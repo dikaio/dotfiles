@@ -109,6 +109,7 @@ formulas=(
   # Shell and linting
   "zsh"
   "shellcheck"    # Shell script linter
+  "biome"         # TypeScript linter
   
   # Security
   "openssl"
@@ -197,7 +198,6 @@ casks=(
   "opera"
   
   # Communication
-  "discord"
   "signal"
   "slack"
   
