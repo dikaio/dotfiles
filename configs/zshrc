@@ -161,7 +161,11 @@ fi
 # ====================
 
 # Load any local/private configurations
-# [[ -f ~/.zshrc.private ]] && source ~/.zshrc.private
+[[ -f ~/.zshrc.private ]] && source ~/.zshrc.private
 
 # Load work-specific configurations
-# [[ -f ~/.zshrc.work ]] && source ~/.zshrc.work
+[[ -f ~/.zshrc.work ]] && source ~/.zshrc.work
+
+# LM Studio CLI
+export PATH="$PATH:$HOME/.lmstudio/bin"
+
