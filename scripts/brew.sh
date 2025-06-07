@@ -106,6 +106,13 @@ formulas=(
   "ncurses"
   "readline"
   
+  # System Administration tools
+  "nmap"
+  "netcat"
+  "tcpdump"
+  "wireshark"
+  "tcpflow"
+
   # Shell and linting
   "zsh"
   "shellcheck"    # Shell script linter
