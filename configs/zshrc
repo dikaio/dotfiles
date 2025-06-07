@@ -169,3 +169,8 @@ fi
 # LM Studio CLI
 export PATH="$PATH:$HOME/.lmstudio/bin"
 
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/dikaio/.lmstudio/bin"
+# End of LM Studio CLI section
+

@@ -116,6 +116,11 @@ __load_completions() {
     } &!
     
     # Set up menuselect keybindings now that completion is loaded
+    # The menuselect keymap might not exist until menu selection is triggered
+    # Set up the completion styles that enable menu selection
+    zstyle ':completion:*' menu select
+    
+    # Now try to set up the keybindings
     if typeset -f __setup_menuselect_keys >/dev/null; then
       __setup_menuselect_keys
     fi

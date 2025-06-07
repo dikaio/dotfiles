@@ -186,7 +186,6 @@ casks=(
   
   # Development
   "cursor"              # AI-powered code editor
-  "dash"                # API documentation
   "github"              # GitHub Desktop
   "kaleidoscope"        # Diff tool
   "tableplus"           # Database GUI
@@ -211,6 +210,7 @@ casks=(
   "raycast"             # Launcher & productivity
   "superwhisper"        # Voice transcription
   "topnotch"            # Menu bar organizer
+  "rocket-typist"
   # "cleanshot"           # Screenshot tool
   
   # Media

@@ -24,15 +24,25 @@ bindkey "^W" backward-kill-word
 # Use vim keys in tab complete menu (only if menuselect is available)
 # These will be set up when completions are loaded
 __setup_menuselect_keys() {
-  # Ensure complist module is loaded
-  zmodload -i zsh/complist 2>/dev/null || return 1
+  # Only proceed if completion system is loaded
+  if ! type compinit >/dev/null 2>&1; then
+    return 0
+  fi
   
-  # Check if menuselect keymap exists
+  # Ensure complist module is loaded
+  if ! zmodload -e zsh/complist; then
+    zmodload -i zsh/complist 2>/dev/null || return 0
+  fi
+  
+  # Force creation of menuselect keymap by setting menu selection style
+  zstyle ':completion:*' menu select 2>/dev/null
+  
+  # Only set bindings if menuselect keymap exists
   if bindkey -l 2>/dev/null | grep -q '^menuselect$'; then
-    bindkey -M menuselect 'h' vi-backward-char
-    bindkey -M menuselect 'k' vi-up-line-or-history
-    bindkey -M menuselect 'l' vi-forward-char
-    bindkey -M menuselect 'j' vi-down-line-or-history
+    bindkey -M menuselect 'h' vi-backward-char 2>/dev/null
+    bindkey -M menuselect 'k' vi-up-line-or-history 2>/dev/null
+    bindkey -M menuselect 'l' vi-forward-char 2>/dev/null
+    bindkey -M menuselect 'j' vi-down-line-or-history 2>/dev/null
   fi
 }
 
