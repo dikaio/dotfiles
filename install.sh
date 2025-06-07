@@ -118,7 +118,10 @@ setup_zsh() {
   # Set Zsh as default shell if not already
   if [[ "$SHELL" != "$(which zsh)" ]]; then
     info "Setting Zsh as default shell..."
-    sudo chsh -s "$(which zsh)" "$USER"
+    info "This requires administrator privileges..."
+    chsh -s "$(which zsh)" "$USER" || {
+      warning "Failed to change shell. You may need to run: chsh -s $(which zsh)"
+    }
   fi
   
   # Create directories
@@ -159,12 +162,6 @@ setup_macos() {
 main() {
   info "Starting dotfiles installation..."
   
-  # Ask for sudo password upfront
-  sudo -v
-  
-  # Keep sudo alive
-  while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
-  
   # Run installation steps
   install_homebrew
   link_dotfiles
@@ -176,7 +173,7 @@ main() {
   info "Please restart your terminal for all changes to take effect"
   
   # Source zshrc if running in zsh
-  if [[ -n "$ZSH_VERSION" ]]; then
+  if [[ -n "${ZSH_VERSION:-}" ]]; then
     source "${HOME}/.zshrc"
   fi
 }

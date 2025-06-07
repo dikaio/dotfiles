@@ -149,17 +149,18 @@ formulas=(
   "turso"         # Turso database CLI
   
   # Language-specific tools
-  "php"
+  #"php"
   "poetry"        # Python dependency management
   "pipx"          # Install Python apps in isolated environments
   "yarn"          # JavaScript package manager
   
   # Other tools
-  "rcm"           # Dotfile management
-  "llm"           # CLI for LLMs
-  "wiki"          # Wikipedia CLI
-  "dotenvx"       # Dotenv management
+  "rcm"             # Dotfile management
+  "llm"             # CLI for LLMs
+  "wiki"            # Wikipedia CLI
+  "dotenvx"         # Dotenv management
   "universal-ctags" # Code navigation
+  "tor"             # Tor 
   
   # Graphics/Game development
   "assimp"        # 3D model loader
@@ -189,7 +190,7 @@ casks=(
   "gpg-suite-no-mail"   # GPG tools
   "little-snitch"       # Network monitor
   "micro-snitch"        # Camera/mic monitor
-  # "mullvadvpn"          # VPN
+  "mullvad-vpn"          # VPN
   
   # Development
   "cursor"              # AI-powered code editor
@@ -380,6 +381,18 @@ fi
 # PostgreSQL setup
 if command_exists psql; then
   info "Setting up PostgreSQL..."
+  
+  # Fix permissions on PostgreSQL data directory
+  PG_DATA_DIR="/opt/homebrew/var/postgresql@16"
+  if [[ -d "$PG_DATA_DIR" ]]; then
+    current_perms=$(stat -f "%Lp" "$PG_DATA_DIR" 2>/dev/null || stat -c "%a" "$PG_DATA_DIR" 2>/dev/null)
+    if [[ "$current_perms" != "700" ]]; then
+      info "Fixing PostgreSQL data directory permissions..."
+      chmod 700 "$PG_DATA_DIR"
+      success "PostgreSQL permissions fixed"
+    fi
+  fi
+  
   if ! brew services list | grep -q "postgresql.*started"; then
     brew services start postgresql@16
     success "PostgreSQL service started"
@@ -396,6 +409,78 @@ if command_exists redis-server; then
     success "Redis service started"
   else
     success "Redis service already running"
+  fi
+fi
+
+# Caddy setup
+if command_exists caddy; then
+  info "Setting up Caddy..."
+  CADDYFILE="/opt/homebrew/etc/Caddyfile"
+  
+  if [[ ! -f "$CADDYFILE" ]]; then
+    info "Creating default Caddyfile..."
+    mkdir -p "$(dirname "$CADDYFILE")"
+    cat > "$CADDYFILE" << 'EOF'
+# Default Caddyfile configuration
+# https://caddyserver.com/docs/caddyfile
+
+# Example configuration for localhost
+:2015 {
+    respond "Hello, Caddy!"
+}
+
+# To serve files from a directory:
+# :8080 {
+#     root * /path/to/your/files
+#     file_server
+# }
+EOF
+    success "Created default Caddyfile at $CADDYFILE"
+  else
+    success "Caddyfile already exists"
+  fi
+fi
+
+# Tor setup
+if command_exists tor; then
+  info "Setting up Tor..."
+  TORRC="/opt/homebrew/etc/tor/torrc"
+  TOR_DATA_DIR="/opt/homebrew/var/lib/tor"
+  
+  # Create Tor directories if they don't exist
+  mkdir -p "$(dirname "$TORRC")"
+  mkdir -p "$TOR_DATA_DIR"
+  
+  if [[ ! -f "$TORRC" ]]; then
+    info "Creating default torrc configuration..."
+    cat > "$TORRC" << 'EOF'
+# Default Tor configuration
+# https://www.torproject.org/docs/tor-manual.html
+
+# Enable control port for applications
+ControlPort 9051
+CookieAuthentication 1
+
+# Logging
+Log notice file /opt/homebrew/var/log/tor.log
+
+# Uncomment to run a relay
+# ORPort 9001
+# ExitPolicy reject *:*
+
+# Uncomment for hidden service
+# HiddenServiceDir /opt/homebrew/var/lib/tor/hidden_service/
+# HiddenServicePort 80 127.0.0.1:8080
+EOF
+    success "Created default torrc at $TORRC"
+  else
+    success "torrc already exists"
+  fi
+  
+  # Check if we can copy the sample file if it exists
+  if [[ ! -f "$TORRC" && -f "/opt/homebrew/etc/tor/torrc.sample" ]]; then
+    cp "/opt/homebrew/etc/tor/torrc.sample" "$TORRC"
+    success "Copied torrc.sample to torrc"
   fi
 fi
 

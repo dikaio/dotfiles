@@ -174,3 +174,4 @@ export PATH="$PATH:$HOME/.lmstudio/bin"
 export PATH="$PATH:/Users/dikaio/.lmstudio/bin"
 # End of LM Studio CLI section
 
+umask 022
