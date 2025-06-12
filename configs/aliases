@@ -9,13 +9,13 @@
 
 # Editor shortcuts - uses environment variables for flexibility
 alias e="$EDITOR"
-alias v="$VISUAL"
+# alias v="$VISUAL"  # Using v='vim' instead
 alias c='cursor'
 
 # Enhanced ls commands with better defaults
 alias ll="ls -alh"        # Human-readable sizes
 alias la="ls -A"          # All files except . and ..
-alias l="ls -CF"          # Classify file types
+# alias l="ls -CF"          # Using enhanced version below
 
 # Safer file operations with verbose output
 alias ln="ln -v"          # Verbose symlinks
@@ -45,9 +45,6 @@ alias cleanswap='rm -rfv ~/.vim/tmp/*'
 alias reload='exec $SHELL -l && echo "Shell reloaded!"'
 alias rl='reload'
 alias cl='clear'
-
-# macOS maintenance (runs system cleanup tasks)
-alias clean="sudo periodic daily weekly monthly"
 
 # ====================
 # GIT
@@ -86,7 +83,7 @@ alias gg="git init && git add -A && git commit -m 'Initial commit'"
 # Visual diff/merge tools
 alias gt="git difftool --tool=ksdiff"
 alias gmt="git mergetool"
-alias gd="ksdiff"                   # Direct Kaleidoscope diff
+alias kd="ksdiff"                   # Direct Kaleidoscope diff
 
 # ====================
 # GITHUB CLI
@@ -197,15 +194,15 @@ alias pstore="pnpm store prune"     # Clean pnpm store
 # GO
 # ====================
 
-alias grm="go run main.go"
-alias gmt="go mod tidy"
-alias gmv="go mod vendor"
-alias gmi="go mod init"
-alias gt="go test ./..."
-alias gtv="go test -v ./..."
-alias gb="go build"
-alias gf="go fmt ./..."
-alias gl="golangci-lint run"
+alias gorm="go run main.go"
+alias gomt="go mod tidy"
+alias gomv="go mod vendor"
+alias gomi="go mod init"
+alias got="go test ./..."
+alias gotv="go test -v ./..."
+alias gob="go build"
+alias gof="go fmt ./..."
+alias gol="golangci-lint run"
 
 # ====================
 # WEB DEVELOPMENT
@@ -246,15 +243,15 @@ alias tttt='tree -L 4 -C'
 alias ta='tree -a -L 2 -C'          # Show hidden files
 
 # System maintenance scripts
-alias update='sh ~/Documents/Apps/Scripts/update.sh'
-alias clean='sh ~/Documents/Apps/Scripts/clean.sh'
-alias sanitize='sh ~/Documents/Apps/Scripts/sanitize.sh'
-alias pull='sh ~/Documents/Apps/Scripts/pull.sh'
+alias clean='sh ~/.dotfiles/scripts/clean.sh'
+alias du="sh ~/.dotfiles/scripts/diskusage.sh"
+alias ports='sh ~/.dotfiles/scripts/ports.sh'
+alias sanitize='sh ~/.dotfiles/scripts/sanitize.sh'
+alias sysinfo='sh ~/.dotfiles/scripts/sysinfo.sh'
+alias update="sh ~/.dotfiles/scripts/update.sh"
 
 # Project cleanup - remove common build artifacts
 alias nom="find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
-alias cleancache="rm -rf .cache .turbo .next dist build coverage"
-alias cleanall="nom && cleancache"
 
 # ====================
 # SYSTEM ADMINISTRATION
@@ -266,7 +263,7 @@ alias path='echo $PATH | tr -s ":" "\n"'
 # Enhanced system monitoring
 alias top="htop || top"             # Use htop if available
 alias gpu="nvtop || nvidia-smi"     # GPU monitoring
-alias ports="lsof -i -P -n"         # Show open ports
+alias openports="lsof -i -P -n"     # Show open ports
 alias myip="curl -s https://api.ipify.org && echo"
 alias localip="ipconfig getifaddr en0"
 
@@ -364,7 +361,7 @@ alias ls="command ls ${colorflag}"
 # Finder
 alias show="defaults write com.apple.finder AppleShowAllFiles -bool true && killall Finder"
 alias hide="defaults write com.apple.finder AppleShowAllFiles -bool false && killall Finder"
-alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+
 
 # Dock
 alias spacer="defaults write com.apple.dock persistent-apps -array-add '{tile-type=\"spacer-tile\";}' && killall Dock"
