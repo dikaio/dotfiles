@@ -6,6 +6,12 @@
 # Node.js and JavaScript/TypeScript
 node_modules/           # Dependencies directory
 .next/                  # Next.js build output
+.output/                # Nuxt.js build output
+.nuxt/                  # Nuxt.js build output
+.vite/                  # Vite build output
+.svelte-kit/            # SvelteKit build output
+.astro/                 # Astro build output
+.astro/                 # Astro build output
 .turbo/                 # Turborepo cache
 .cache/                 # General cache directory
 dist/                   # Distribution/build output
@@ -53,11 +59,21 @@ pkg/                  # WASM pkg directory
 *.map                 # Source map files
 
 # Large/Binary Files
+*.mp4                 # Videos
+*.mov                 # Videos
+*.avi                 # Videos
+*.wmv                 # Videos
+*.flv                 # Videos
+*.webm                # Videos
+*.mkv                 # Videos
+*.m4v                 # Videos
+*.avif                # Images
+*.webp                # Images
+*.ico                 # Icons
+*.png                 # Images
 *.jpg                 # Images
 *.jpeg                # Images
-*.png                 # Images
 *.gif                 # Images
-*.ico                 # Icons
 *.pdf                 # PDFs
 *.zip                 # Archives
 *.tar.gz              # Archives
