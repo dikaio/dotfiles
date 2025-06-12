@@ -109,6 +109,16 @@ setup_asdf() {
 }
 
 # ====================
+# SCRIPT PERMISSIONS
+# ====================
+
+set_script_permissions() {
+  info "Setting executable permissions for scripts..."
+  chmod 755 "${DOTFILES_DIR}"/scripts/*.sh
+  success "Script permissions updated"
+}
+
+# ====================
 # ZSH SETUP
 # ====================
 
@@ -163,6 +173,7 @@ main() {
   info "Starting dotfiles installation..."
   
   # Run installation steps
+  set_script_permissions
   install_homebrew
   link_dotfiles
   setup_zsh
