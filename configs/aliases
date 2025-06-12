@@ -21,9 +21,43 @@ alias la="ls -A"          # All files except . and ..
 alias ln="ln -v"          # Verbose symlinks
 alias mkdir="mkdir -pv"   # Create parent dirs, verbose
 alias md="mkdir -pv"      # Shorthand for mkdir
-# alias rm="rm -i"          # Interactive mode for safety (commented out for default behavior)
 alias cp="cp -iv"         # Interactive & verbose
 alias mv="mv -iv"         # Interactive & verbose
+
+# Enhanced rm that can remove directories without -rf
+rm() {
+  if [[ $# -eq 0 ]]; then
+    command rm
+    return
+  fi
+  
+  local args=()
+  local has_r=false
+  local has_f=false
+  
+  # Check existing flags
+  for arg in "$@"; do
+    if [[ "$arg" == *r* ]]; then
+      has_r=true
+    fi
+    if [[ "$arg" == *f* ]]; then
+      has_f=true
+    fi
+  done
+  
+  # If trying to remove a directory without -r, add -rf
+  for arg in "$@"; do
+    if [[ ! "$arg" =~ ^- ]] && [[ -d "$arg" ]] && [[ "$has_r" == false ]]; then
+      args+=("-rf")
+      has_r=true
+      has_f=true
+      break
+    fi
+  done
+  
+  # Execute rm with all arguments
+  command rm "${args[@]}" "$@"
+}
 
 # Use MacVim in terminal mode if available
 if command -v mvim >/dev/null 2>&1; then
