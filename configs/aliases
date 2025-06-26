@@ -181,6 +181,7 @@ alias bl="bun run lint"
 alias blf="bun run lint --fix"
 alias bf="bun run format"
 alias bc="bun run check"
+alias bcf="biome check --write --unsafe"
 alias bx="bunx"                     # Execute packages
 
 # NPM

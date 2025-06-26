@@ -175,3 +175,8 @@ export PATH="$PATH:/Users/dikaio/.lmstudio/bin"
 # End of LM Studio CLI section
 
 umask 022
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=(/Users/dikaio/.docker/completions $fpath)
+autoload -Uz compinit
+compinit
+# End of Docker CLI completions
