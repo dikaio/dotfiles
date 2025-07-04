@@ -257,6 +257,9 @@ alias nom="find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +"
 # SYSTEM ADMINISTRATION
 # ====================
 
+# Remove files and directories recursively
+alias rm="rm -rf"
+
 # Pretty print the PATH
 alias path='echo $PATH | tr -s ":" "\n"'
 
