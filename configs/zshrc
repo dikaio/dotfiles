@@ -177,6 +177,6 @@ export PATH="$PATH:/Users/dikaio/.lmstudio/bin"
 umask 022
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/dikaio/.docker/completions $fpath)
-autoload -Uz compinit
-compinit
+# Completion initialization moved to lazy loading to avoid conflicts
+# See ~/.zshrc.d/lazy-loading.zsh
 # End of Docker CLI completions

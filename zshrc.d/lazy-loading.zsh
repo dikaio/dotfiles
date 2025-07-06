@@ -124,6 +124,12 @@ __load_completions() {
     if typeset -f __setup_menuselect_keys >/dev/null; then
       __setup_menuselect_keys
     fi
+    
+    # Reinitialize completions for Docker if Docker completions are in fpath
+    if [[ -d /Users/dikaio/.docker/completions ]] && [[ " ${fpath[*]} " == *" /Users/dikaio/.docker/completions "* ]]; then
+      # Docker completions are already in fpath, just need to reload
+      compinit -C
+    fi
   fi
 }
 
