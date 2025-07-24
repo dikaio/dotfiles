@@ -261,7 +261,7 @@
 # ====================
 [commit]
 	# Show diff in commit message editor
-	verbose = true
+	verbose = false
 	
 	# Use commit message template
 	template = ~/.gitmessage

@@ -227,6 +227,14 @@ opera() { open -a "Opera" "${1:-.}"; }
 edge() { open -a "Microsoft Edge" "${1:-.}"; }
 
 # ====================
+# CLAUDE
+# ====================
+
+claude() {
+  echo "CRITICAL: Follow rules in CLAUDE.md exactly" | cat - | command claude "$@"
+}
+
+# ====================
 # UTILITIES
 # ====================
 

@@ -31,7 +31,7 @@
 # ====================
 
 # Show query execution time for all queries
-\timing on
+\timing off
 
 # Auto-expand wide tables for better readability
 # auto = automatically switch between normal and expanded
@@ -124,7 +124,7 @@
 \set COMP_KEYWORD_CASE upper
 
 # Enable verbose error reports
-\set VERBOSITY verbose
+\set VERBOSITY default
 
 # ====================
 # OUTPUT FORMATTING

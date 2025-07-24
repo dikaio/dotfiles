@@ -129,8 +129,8 @@ case "$ENVIRONMENT" in
     export DEBUG="${DEBUG:-false}"
     ;;
   *)  # development
-    export LOG_LEVEL="${LOG_LEVEL:-debug}"
-    export DEBUG="${DEBUG:-true}"
+    export LOG_LEVEL="${LOG_LEVEL:-warning}"
+    export DEBUG="${DEBUG:-false}"
     ;;
 esac
 
