@@ -117,6 +117,7 @@ formulas=(
   "zsh"
   "shellcheck"    # Shell script linter
   "biome"         # TypeScript linter
+  "codex"         # AI-powered code editor
   
   # Security
   "openssl"

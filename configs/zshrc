@@ -183,3 +183,6 @@ fpath=(/Users/dikaio/.docker/completions $fpath)
 # Completion initialization moved to lazy loading to avoid conflicts
 # See ~/.zshrc.d/lazy-loading.zsh
 # End of Docker CLI completions
+
+# bun completions
+[ -s "/Users/dikaio/.bun/_bun" ] && source "/Users/dikaio/.bun/_bun"

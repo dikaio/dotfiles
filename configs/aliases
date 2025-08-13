@@ -230,9 +230,9 @@ edge() { open -a "Microsoft Edge" "${1:-.}"; }
 # CLAUDE
 # ====================
 
-claude() {
-  echo "CRITICAL: Follow rules in CLAUDE.md exactly" | cat - | command claude "$@"
-}
+# claude() {
+#   echo "CRITICAL: Follow rules in CLAUDE.md exactly" | cat - | command claude "$@"
+# }
 
 # ====================
 # UTILITIES
