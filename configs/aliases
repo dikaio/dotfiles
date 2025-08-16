@@ -59,7 +59,7 @@ alias gd="git diff"
 alias gdc="git diff --cached"       # Diff staged changes
 alias gl="git log --oneline --graph --decorate"
 alias gb="git branch"
-alias gc="git commit -m"
+alias gc="git commit -S -m"
 alias gca="git commit -am"          # Add and commit tracked files
 
 # Branch management
