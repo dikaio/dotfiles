@@ -199,6 +199,7 @@ casks=(
   "kaleidoscope"        # Diff tool
   "tableplus"           # Database GUI
   "ghostty"             # Terminal emulator
+  "linear-linear"       # Linear project management
   
   # Browsers
   "firefox"
