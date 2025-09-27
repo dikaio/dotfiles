@@ -10,6 +10,7 @@
 # SECURITY NOTE: Never commit actual API keys or secrets!
 # Use a separate .zshenv.secrets file that's gitignored.
 
+
 # ====================
 # COMMUNICATION SERVICES
 # ====================

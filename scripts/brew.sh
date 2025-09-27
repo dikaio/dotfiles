@@ -117,8 +117,9 @@ formulas=(
   "zsh"
   "shellcheck"    # Shell script linter
   "biome"         # TypeScript linter
-  "codex"         # AI-powered code editor
-  
+  "codex"         # Agent
+  "claude-code"   # Agent
+
   # Security
   "openssl"
   "libressl"
@@ -200,6 +201,7 @@ casks=(
   "tableplus"           # Database GUI
   "ghostty"             # Terminal emulator
   "linear-linear"       # Linear project management
+  "visual-studio-code"  # Visual Studio Code
   
   # Browsers
   "firefox"
@@ -209,6 +211,11 @@ casks=(
   # Communication
   "signal"
   "slack"
+
+  # Business
+  "google-ads-editor"
+  "google-drive"
+  "google-trends"
   
   # Design
   "figma"

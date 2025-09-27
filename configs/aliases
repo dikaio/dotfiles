@@ -10,7 +10,7 @@
 # Editor shortcuts - uses environment variables for flexibility
 alias e="$EDITOR"
 # alias v="$VISUAL"  # Using v='vim' instead
-alias c='cursor'
+alias c='code'
 
 # Enhanced ls commands with better defaults
 alias ll="ls -alh"        # Human-readable sizes
@@ -143,10 +143,9 @@ alias bb="bun run build"
 alias bt="bun test"
 alias btw="bun test --watch"
 alias bl="bun run lint"
-alias blf="bun run lint --fix"
 alias bf="bun run format"
 alias bc="bun run check"
-alias bcf="biome check --write --unsafe"
+alias bcf="bun run biome check --write --unsafe"
 alias bx="bunx"                     # Execute packages
 
 # NPM
@@ -330,7 +329,7 @@ alias -- -='cd -'                   # Go to previous directory
 alias dl='cd ~/Downloads'
 alias dt='cd ~/Desktop'
 alias pj='cd ~/Projects'
-alias df='cursor ~/.dotfiles'
+alias df='code ~/.dotfiles'
 alias tmp='cd /tmp'
 alias o='open .'                    # Open current directory in Finder
 
