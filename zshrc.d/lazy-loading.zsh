@@ -125,9 +125,9 @@ __load_completions() {
       __setup_menuselect_keys
     fi
     
-    # Reinitialize completions for Docker if Docker completions are in fpath
-    if [[ -d /Users/dikaio/.docker/completions ]] && [[ " ${fpath[*]} " == *" /Users/dikaio/.docker/completions "* ]]; then
-      # Docker completions are already in fpath, just need to reload
+    # Reinitialize completions for Docker if Docker completions exist
+    if [[ -d "$HOME/.docker/completions" ]]; then
+      fpath=($HOME/.docker/completions $fpath)
       compinit -C
     fi
   fi
@@ -168,17 +168,12 @@ stripe() {
 }
 
 # Bun - lazy load completions
-if [[ -d "$HOME/.bun" ]]; then
-  export BUN_INSTALL="$HOME/.bun"
-  export PATH="$BUN_INSTALL/bin:$PATH"
-  
-  # Lazy load bun completions
-  bun() {
-    unfunction bun
-    [[ -s "${BUN_INSTALL}/_bun" ]] && source "${BUN_INSTALL}/_bun"
-    command bun "$@"
-  }
-fi
+# BUN_INSTALL and PATH already set in zshrc
+bun() {
+  unfunction bun
+  [[ -s "${BUN_INSTALL:-$HOME/.bun}/_bun" ]] && source "${BUN_INSTALL:-$HOME/.bun}/_bun"
+  command bun "$@"
+}
 
 # ====================
 # UTILITY FUNCTIONS

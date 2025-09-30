@@ -44,11 +44,12 @@ export GPG_TTY=$(tty)
 # COMPILER & BUILD CONFIGURATION
 # ====================
 
-# PostgreSQL 16 specific paths (adjust version as needed)
-if [[ -d "/opt/homebrew/opt/postgresql@16" ]]; then
-  export LDFLAGS="-L/opt/homebrew/opt/postgresql@16/lib"
-  export CPPFLAGS="-I/opt/homebrew/opt/postgresql@16/include"
-  export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@16/lib/pkgconfig"
+# PostgreSQL configuration (adjust version as needed)
+POSTGRESQL_VERSION="${POSTGRESQL_VERSION:-16}"
+if [[ -d "/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}" ]]; then
+  export LDFLAGS="-L/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}/lib"
+  export CPPFLAGS="-I/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}/include"
+  export PKG_CONFIG_PATH="/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}/lib/pkgconfig"
 fi
 
 # ====================
@@ -84,7 +85,7 @@ fi
 [[ -d "$HOME/.lmstudio/bin" ]] && export PATH="$HOME/.lmstudio/bin:$PATH"
 
 # PostgreSQL
-[[ -d "/opt/homebrew/opt/postgresql@16/bin" ]] && export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
+[[ -d "/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}/bin" ]] && export PATH="/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}/bin:$PATH"
 
 # User binaries (highest priority)
 [[ -d "$HOME/.local/bin" ]] && export PATH="$HOME/.local/bin:$PATH"
@@ -99,12 +100,6 @@ typeset -U PATH
 
 # Completions moved to lazy loading for better performance
 # See ~/.zshrc.d/lazy-loading.zsh
-
-# Enable better completion options
-# zstyle ':completion:*' menu select                      # Enable menu selection
-# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'    # Case-insensitive completion
-# zstyle ':completion:*' list-colors ''                   # Colorize completions
-# zstyle ':completion:*:descriptions' format '%U%F{green}%d%f%u'  # Format descriptions
 
 # ====================
 # FUZZY FINDER (FZF)
@@ -169,11 +164,8 @@ fi
 # Load work-specific configurations
 [[ -f ~/.zshrc.work ]] && source ~/.zshrc.work
 
+# Set default file creation mask
 umask 022
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/dikaio/.docker/completions $fpath)
-# Completion initialization moved to lazy loading to avoid conflicts
-# See ~/.zshrc.d/lazy-loading.zsh
-# End of Docker CLI completions
 
+# Docker CLI completions - handled by lazy-loading.zsh
 # bun completions - handled by lazy-loading.zsh
