@@ -1,10 +1,12 @@
 # git-safe.zsh
 # Trust git repositories by creating .git/safe directory
 
-# Add trusted repository bin directories to PATH
+# Add trusted repository bin directories to PATH only if .git/safe exists
 # Usage: mkdir .git/safe in repos you trust
-PATH=".git/safe/../../bin:$PATH"
-PATH=".git/safe/../../node_modules/.bin:$PATH"
+if [[ -d .git/safe ]]; then
+  PATH=".git/safe/../../bin:$PATH"
+  PATH=".git/safe/../../node_modules/.bin:$PATH"
+fi
 
 # Function to mark current repository as safe
 mark-safe() {

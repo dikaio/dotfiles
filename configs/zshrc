@@ -81,7 +81,7 @@ fi
 
 # Development tools
 [[ -d "$HOME/.codeium/windsurf/bin" ]] && export PATH="$HOME/.codeium/windsurf/bin:$PATH"
-[[ -d "$HOME/.lmstudio/bin" ]] && export PATH="$PATH:$HOME/.lmstudio/bin"
+[[ -d "$HOME/.lmstudio/bin" ]] && export PATH="$HOME/.lmstudio/bin:$PATH"
 
 # PostgreSQL
 [[ -d "/opt/homebrew/opt/postgresql@16/bin" ]] && export PATH="/opt/homebrew/opt/postgresql@16/bin:$PATH"
@@ -169,14 +169,6 @@ fi
 # Load work-specific configurations
 [[ -f ~/.zshrc.work ]] && source ~/.zshrc.work
 
-# LM Studio CLI
-export PATH="$PATH:$HOME/.lmstudio/bin"
-
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/dikaio/.lmstudio/bin"
-# End of LM Studio CLI section
-
 umask 022
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
 fpath=(/Users/dikaio/.docker/completions $fpath)
@@ -184,5 +176,4 @@ fpath=(/Users/dikaio/.docker/completions $fpath)
 # See ~/.zshrc.d/lazy-loading.zsh
 # End of Docker CLI completions
 
-# bun completions
-[ -s "/Users/dikaio/.bun/_bun" ] && source "/Users/dikaio/.bun/_bun"
+# bun completions - handled by lazy-loading.zsh
