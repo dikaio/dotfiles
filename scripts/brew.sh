@@ -149,7 +149,7 @@ formulas=(
   "stripe"            # Stripe CLI
   "supabase"          # Supabase CLI
   "turso"             # Turso database CLI
-  "schpet/tap/linear" # Linear project management
+  "dorkitude/linctl"  # Linear project management
 
   # Language-specific tools
   #"php"
