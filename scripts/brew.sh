@@ -143,13 +143,14 @@ formulas=(
   "imagemagick"
   
   # Infrastructure tools
-  "caddy"         # Web server
-  "flyctl"        # Fly.io CLI
-  "pulumi"        # Infrastructure as code
-  "stripe"        # Stripe CLI
-  "supabase"      # Supabase CLI
-  "turso"         # Turso database CLI
-  
+  "caddy"             # Web server
+  "flyctl"            # Fly.io CLI
+  "pulumi"            # Infrastructure as code
+  "stripe"            # Stripe CLI
+  "supabase"          # Supabase CLI
+  "turso"             # Turso database CLI
+  "schpet/tap/linear" # Linear project management
+
   # Language-specific tools
   #"php"
   "poetry"        # Python dependency management
