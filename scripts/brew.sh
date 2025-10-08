@@ -160,7 +160,6 @@ formulas=(
   # Other tools
   "rcm"             # Dotfile management
   "llm"             # CLI for LLMs
-  "wiki"            # Wikipedia CLI
   "dotenvx"         # Dotenv management
   "universal-ctags" # Code navigation
   "tor"             # Tor 
