@@ -147,6 +147,7 @@ alias bf="bun run format"
 alias bc="bun run check"
 alias bcf="bun run biome check --write --unsafe"
 alias bx="bunx"                     # Execute packages
+alias bio="bun run format && bun run lint --fix && bun run biome check --write --unsafe"  # Format and lint fix
 
 # NPM
 alias ni="npm install"
@@ -170,24 +171,24 @@ alias nau="npm audit"
 alias nauf="npm audit fix"
 
 # pnpm (efficient package manager)
-alias pi="pnpm install"
-alias pa="pnpm add"
-alias pad="pnpm add -D"             # Add dev dependency
-alias pr="pnpm remove"
-alias pu="pnpm update"
-alias pui="pnpm update --interactive"
-alias pul="pnpm update --latest"
-alias px="pnpm dlx"                 # Execute packages
-alias pd="pnpm dev"
-alias ps="pnpm start"
-alias pb="pnpm build"
-alias pt="pnpm test"
-alias ptw="pnpm test --watch"
-alias pl="pnpm lint"
-alias plf="pnpm lint --fix"
-alias pf="pnpm format"
-alias pc="pnpm check"
-alias pstore="pnpm store prune"     # Clean pnpm store
+# alias pi="pnpm install"
+# alias pa="pnpm add"
+# alias pad="pnpm add -D"             # Add dev dependency
+# alias pr="pnpm remove"
+# alias pu="pnpm update"
+# alias pui="pnpm update --interactive"
+# alias pul="pnpm update --latest"
+# alias px="pnpm dlx"                 # Execute packages
+# alias pd="pnpm dev"
+# alias ps="pnpm start"
+# alias pb="pnpm build"
+# alias pt="pnpm test"
+# alias ptw="pnpm test --watch"
+# alias pl="pnpm lint"
+# alias plf="pnpm lint --fix"
+# alias pf="pnpm format"
+# alias pc="pnpm check"
+# alias pstore="pnpm store prune"     # Clean pnpm store
 
 # ====================
 # GO
