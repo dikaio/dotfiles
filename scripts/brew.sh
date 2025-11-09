@@ -211,6 +211,7 @@ casks=(
   # Communication
   "signal"
   "slack"
+  "quo"
 
   # Business
   "google-ads-editor"
