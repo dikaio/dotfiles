@@ -217,6 +217,7 @@ casks=(
   "google-ads-editor"
   "google-drive"
   "google-trends"
+  "grammarly-desktop"
   
   # Design
   "figma"
