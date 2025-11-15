@@ -206,6 +206,12 @@ alias gof="go fmt ./..."
 alias gol="golangci-lint run"
 
 # ====================
+# GitGuardian
+# ====================
+alias gg-scan="ggshield scan repo ."
+alias gg-auth="ggshield auth login"
+
+# ====================
 # WEB DEVELOPMENT
 # ====================
 
