@@ -6,38 +6,53 @@
 # Lazy loading configurations for heavy tools to improve shell startup time
 
 # ====================
-# ASDF VERSION MANAGER
+# MISE VERSION MANAGER (replaces asdf)
 # ====================
 
-# Set ASDF data directory
-export ASDF_DATA_DIR="$HOME/.asdf"
+# mise is faster and compatible with asdf plugins and .tool-versions
+# Lazy load mise - only activate when first used
+if command -v mise >/dev/null 2>&1; then
+  # Set mise configuration directory
+  export MISE_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/mise"
+  export MISE_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/mise"
 
-# Lazy load ASDF - only load when first used
-asdf() {
-  unfunction asdf
-  . /opt/homebrew/opt/asdf/libexec/asdf.sh
-  asdf "$@"
-}
+  # Lazy load mise activation
+  mise() {
+    unfunction mise
+    eval "$(command mise activate zsh)"
+    command mise "$@"
+  }
+fi
 
-# Create wrapper functions for common asdf-managed commands
-# These will trigger asdf loading when needed
-_asdf_lazy_load_wrapper() {
-  local cmd=$1
-  eval "
-    $cmd() {
-      unfunction $cmd
-      . /opt/homebrew/opt/asdf/libexec/asdf.sh
-      $cmd \"\$@\"
-    }
-  "
-}
+# ====================
+# LEGACY ASDF (COMMENTED OUT - REPLACED BY MISE)
+# ====================
+# Keep this for reference if you need to migrate from asdf to mise
+# mise is compatible with asdf plugins and .tool-versions files
 
-# Common commands that might be managed by asdf
-for cmd in ruby python node npm yarn pnpm go cargo rustc elixir erl; do
-  if ! command -v $cmd >/dev/null 2>&1; then
-    _asdf_lazy_load_wrapper $cmd
-  fi
-done
+# export ASDF_DATA_DIR="$HOME/.asdf"
+# asdf() {
+#   unfunction asdf
+#   . /opt/homebrew/opt/asdf/libexec/asdf.sh
+#   asdf "$@"
+# }
+#
+# _asdf_lazy_load_wrapper() {
+#   local cmd=$1
+#   eval "
+#     $cmd() {
+#       unfunction $cmd
+#       . /opt/homebrew/opt/asdf/libexec/asdf.sh
+#       $cmd \"\$@\"
+#     }
+#   "
+# }
+#
+# for cmd in ruby python node npm yarn pnpm go cargo rustc elixir erl; do
+#   if ! command -v $cmd >/dev/null 2>&1; then
+#     _asdf_lazy_load_wrapper $cmd
+#   fi
+# done
 
 # ====================
 # FZF (FUZZY FINDER)

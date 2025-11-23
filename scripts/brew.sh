@@ -100,11 +100,31 @@ formulas=(
   # Development tools
   "git"
   "gh"            # GitHub CLI
+  "gh-dash"       # GitHub dashboard for CLI
   "vim"
+  "neovim"        # Modern Vim replacement
   "tmux"
-  "htop"          # Better top
+  "btop"          # Better top (replaces htop)
   "ncurses"
   "readline"
+
+  # Modern CLI tools
+  "fd"            # Better find
+  "bat"           # Better cat (already have)
+  "eza"           # Better ls (already have)
+  "ripgrep"       # Better grep (already have)
+  "fzf"           # Fuzzy finder (already have)
+  "zoxide"        # Better cd (already have)
+  "lf"            # Terminal file manager (already have)
+  "git-delta"     # Beautiful git diffs
+  "lazygit"       # Git TUI
+  "tig"           # Git repository browser
+  "just"          # Modern make alternative
+  "entr"          # Watch files and run commands
+  "tmuxp"         # Tmux session manager
+  "starship"      # Fast, customizable prompt
+  "atuin"         # SQLite shell history
+  "mise"          # Fast runtime version manager (replaces asdf)
   
   # System Administration tools
   "nmap"
@@ -270,64 +290,61 @@ for cask in "${casks[@]}"; do
 done
 
 # ====================
-# ASDF VERSION MANAGER
+# MISE VERSION MANAGER
 # ====================
+# Note: mise replaces asdf with better performance and env var handling
+# It's compatible with .tool-versions files
 
-# Check if asdf is installed
-if ! command_exists asdf; then
-  warning "asdf is not installed. Skipping plugin installation."
-else
-  desired_plugins=(
-    # Languages
-    "ruby"
-    "nodejs"
-    "python"
-    "golang"
-    "rust"
-    "elixir"
-    "erlang"
-    "julia"
-    "kotlin"
-    "lua"
-    "ocaml"
-    "scala"
-    "zig"
-    
-    # JavaScript runtimes
-    "deno"
-    "pnpm"
-    
-    # Infrastructure
-    "terraform"
-    "pulumi"
-    "packer"
-    "vault"
-    
-    # Databases
-    "sqlite"
-    
-    # Other
-    "haskell"
-    "venom"
+if command_exists mise; then
+  info "Setting up mise (runtime version manager)..."
+
+  # mise will automatically detect and use .tool-versions files
+  # You can also use mise.toml for more advanced configuration
+
+  # Common languages to install (optional - you can do this per-project)
+  desired_tools=(
+    "node@lts"
+    "python@latest"
+    "ruby@latest"
   )
-  
-  info "Setting up asdf plugins..."
-  installed_plugins=$(asdf plugin list 2>/dev/null || echo "")
-  
-  for plugin in "${desired_plugins[@]}"; do
-    if ! echo "$installed_plugins" | grep -q "^${plugin}$"; then
-      info "Installing asdf plugin: $plugin"
-      asdf plugin add "$plugin" || warning "Failed to install $plugin plugin"
+
+  info "Installing common mise tools globally..."
+  for tool in "${desired_tools[@]}"; do
+    if ! mise list | grep -q "$(echo $tool | cut -d@ -f1)"; then
+      info "Installing $tool via mise..."
+      mise use -g "$tool" || warning "Failed to install $tool"
     else
-      success "Plugin already installed: $plugin"
-      info "Updating plugin: $plugin"
-      asdf plugin update "$plugin" || warning "Failed to update $plugin plugin"
+      success "Tool already installed: $tool"
     fi
   done
-  
-  info "Reshimming asdf..."
-  asdf reshim
+
+  success "mise configured successfully"
+  info "Use 'mise use <tool>@<version>' in project directories"
+  info "mise is compatible with .tool-versions files"
+else
+  warning "mise is not installed yet. Will be available after running this script."
 fi
+
+# ====================
+# LEGACY ASDF (COMMENTED OUT - REPLACED BY MISE)
+# ====================
+# Keeping this commented for reference in case you need to migrate
+# asdf data to mise. mise is compatible with asdf plugins and .tool-versions
+
+# if ! command_exists asdf; then
+#   warning "asdf is not installed. Skipping plugin installation."
+# else
+#   desired_plugins=(
+#     "ruby" "nodejs" "python" "golang" "rust" "elixir" "erlang"
+#     "julia" "kotlin" "lua" "ocaml" "scala" "zig" "deno" "pnpm"
+#     "terraform" "pulumi" "packer" "vault" "sqlite" "haskell" "venom"
+#   )
+#
+#   for plugin in "${desired_plugins[@]}"; do
+#     asdf plugin add "$plugin" 2>/dev/null || true
+#   done
+#   asdf reshim
+# fi
 
 # ====================
 # BUN PACKAGES

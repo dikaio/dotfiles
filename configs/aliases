@@ -9,8 +9,9 @@
 
 # Editor shortcuts - uses environment variables for flexibility
 alias e="$EDITOR"
-# alias v="$VISUAL"  # Using v='vim' instead
-alias c='code'
+alias v='nvim'              # Neovim
+alias vf='nvim $(fzf)'      # Fuzzy-find and open in Neovim
+alias c='claude-code'       # Claude Code CLI
 
 # Enhanced ls commands with better defaults
 alias ll="ls -alh"        # Human-readable sizes
@@ -30,11 +31,12 @@ if command -v mvim >/dev/null 2>&1; then
 fi
 
 # ====================
-# VIM
+# VIM/NEOVIM
 # ====================
 
-alias v='vim'
-alias cleanswap='rm -rfv ~/.vim/tmp/*'
+alias vim='nvim'            # Redirect vim to neovim
+alias vi='nvim'             # Redirect vi to neovim
+alias cleanswap='rm -rfv ~/.vim/tmp/* ~/.local/share/nvim/swap/*'
 
 # ====================
 # SHELL MANAGEMENT
@@ -61,6 +63,10 @@ alias gl="git log --oneline --graph --decorate"
 alias gb="git branch"
 alias gc="git commit -S -m"         # Sign commits with GPG
 alias gca="git commit -am"          # Add and commit tracked files
+
+# Git TUI tools
+alias lg="lazygit"                  # LazyGit TUI
+alias tg="tig"                      # Tig browser
 
 # Branch management
 alias gco="git checkout"
@@ -108,6 +114,9 @@ alias ta="tmux a"                   # Attach to last session
 alias tat="tmux a -t"               # Attach to named session
 alias tkill="tmux kill-session -t"
 alias tks="tmux kill-server"        # Kill all sessions
+
+# Tmux sessionizer - fuzzy-find and switch to project
+alias ts="sh ~/.dotfiles/scripts/tmux-sessionizer.sh"
 
 # ====================
 # PYTHON
@@ -189,14 +198,6 @@ firefox() { open -a "Firefox" "${1:-.}"; }
 chrome() { open -a "Google Chrome" "${1:-.}"; }
 opera() { open -a "Opera" "${1:-.}"; }
 edge() { open -a "Microsoft Edge" "${1:-.}"; }
-
-# ====================
-# CLAUDE
-# ====================
-
-# claude() {
-#   echo "CRITICAL: Follow rules in CLAUDE.md exactly" | cat - | command claude "$@"
-# }
 
 # ====================
 # UTILITIES
@@ -296,16 +297,6 @@ alias pj='cd ~/Projects'
 alias df='code ~/.dotfiles'
 alias tmp='cd /tmp'
 alias o='open .'                    # Open current directory in Finder
-
-# Open any project in ~/Projects directory with VSCode/Cursor
-pjo() {
-  if [ -z "$1" ]; then
-    echo "Usage: pjo <project-name>"
-    echo "Opens a project from ~/Projects/ in VSCode/Cursor"
-    return 1
-  fi
-  cd ~/Projects/"$1" && c .
-}
 
 # Code example directories
 alias tscode='c ~/Projects/_code/ts && ls'
