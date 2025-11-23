@@ -100,7 +100,6 @@ formulas=(
   # Development tools
   "git"
   "gh"            # GitHub CLI
-  "gh-dash"       # GitHub dashboard for CLI
   "vim"
   "neovim"        # Modern Vim replacement
   "tmux"
@@ -510,6 +509,32 @@ EOF
     cp "/opt/homebrew/etc/tor/torrc.sample" "$TORRC"
     success "Copied torrc.sample to torrc"
   fi
+fi
+
+# ====================
+# GITHUB CLI EXTENSIONS
+# ====================
+
+if command_exists gh; then
+  info "Installing GitHub CLI extensions..."
+
+  gh_extensions=(
+    "dlvhdr/gh-dash"      # Dashboard for GitHub
+  )
+
+  installed_extensions=$(gh extension list 2>/dev/null || echo "")
+
+  for ext in "${gh_extensions[@]}"; do
+    ext_name=$(echo "$ext" | cut -d'/' -f2)
+    if ! echo "$installed_extensions" | grep -q "$ext_name"; then
+      info "Installing gh extension: $ext"
+      gh extension install "$ext" || warning "Failed to install $ext"
+    else
+      success "Extension already installed: $ext_name"
+    fi
+  done
+else
+  warning "GitHub CLI (gh) is not installed. Skipping extension installation."
 fi
 
 # ====================

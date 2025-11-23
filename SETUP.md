@@ -5,22 +5,26 @@ This guide will help you complete the migration to a modern, IDE-less developmen
 ## What's Been Done
 
 ### 1. Tmux Configuration (configs/tmux.conf:19-20,235)
+
 - ✅ Updated to use `tmux-256color` for better color support
 - ✅ Added `christoomey/vim-tmux-navigator` plugin for seamless vim/tmux navigation
 
 ### 2. Tmux Sessionizer Script (scripts/tmux-sessionizer.sh)
+
 - ✅ Created fuzzy-finder script to quickly jump between projects
 - ✅ Automatically creates/attaches to project-specific tmux sessions
 - ✅ Opens nvim in project root on session creation
 - ✅ Accessible via `ts` alias
 
 ### 3. Package Manager (scripts/brew.sh)
+
 - ✅ Added modern CLI tools: fd, git-delta, lazygit, tig, gh-dash, mise, just, btop, starship, atuin, tmuxp
 - ✅ Added neovim to formulas
 - ✅ Replaced asdf with mise (faster, better env var handling)
 - ✅ Commented out legacy asdf code for reference
 
 ### 4. Shell Aliases (configs/aliases)
+
 - ✅ Updated `v` to use `nvim` instead of `vim`
 - ✅ Added `vf` for fuzzy-find and open in Neovim
 - ✅ Updated `c` to use `claude-code` CLI
@@ -30,6 +34,7 @@ This guide will help you complete the migration to a modern, IDE-less developmen
 - ✅ Redirected `vim` and `vi` to `nvim`
 
 ### 5. Shell Configuration (configs/zshrc)
+
 - ✅ Set `EDITOR` and `VISUAL` to `nvim`
 - ✅ Added starship prompt initialization
 - ✅ Added atuin history initialization
@@ -37,12 +42,14 @@ This guide will help you complete the migration to a modern, IDE-less developmen
 - ✅ Enhanced FZF keybindings with preview support
 
 ### 6. Lazy Loading (.zshrc.d/lazy-loading.zsh)
+
 - ✅ Replaced asdf with mise lazy loading
 - ✅ Kept legacy asdf code commented for reference
 
 ## Next Steps
 
 ### 1. Install New Tools
+
 Run the updated brew.sh script to install all the new tools:
 
 ```bash
@@ -51,6 +58,7 @@ cd ~/.dotfiles
 ```
 
 This will install:
+
 - neovim
 - fd, bat, eza, ripgrep (modern CLI tools)
 - git-delta, lazygit, tig, gh-dash (git tools)
@@ -62,6 +70,7 @@ This will install:
 - tmuxp (tmux session manager)
 
 ### 2. Install Tmux Terminfo
+
 For proper color support on remote servers:
 
 ```bash
@@ -70,6 +79,7 @@ tic -x /tmp/tmux-256color.terminfo
 ```
 
 ### 3. Install Tmux Plugins
+
 Install TPM (Tmux Plugin Manager) if not already installed:
 
 ```bash
@@ -77,11 +87,20 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
 Then install plugins:
+
 1. Start tmux: `tmux`
-2. Press `prefix + I` (default prefix is `Ctrl-a`, so `Ctrl-a + Shift-i`)
-3. Wait for plugins to install
+2. Reload tmux config: `tmux source ~/.tmux.conf` (or inside tmux: `Ctrl-a` then type `:source ~/.tmux.conf` and press Enter)
+3. Press `Ctrl-a` then `Shift-i` (capital I for **I**nstall)
+   - You should see a message "Installing plugins..."
+   - Wait for plugins to install (you'll see "Done!" when finished)
+
+**Alternative manual installation:**
+```bash
+~/.tmux/plugins/tpm/bin/install_plugins
+```
 
 ### 4. Set Up LazyVim
+
 Install LazyVim for a complete Neovim IDE experience:
 
 ```bash
@@ -100,6 +119,7 @@ nvim
 ```
 
 LazyVim comes with:
+
 - LSP support (auto-install via Mason)
 - Telescope (fuzzy finding)
 - Neo-tree (file explorer)
@@ -108,6 +128,7 @@ LazyVim comes with:
 - And much more!
 
 ### 5. Configure Starship Prompt
+
 Create a starship config:
 
 ```bash
@@ -139,6 +160,7 @@ EOF
 ```
 
 ### 6. Set Up Atuin
+
 Initialize atuin for better shell history:
 
 ```bash
@@ -146,6 +168,7 @@ atuin import auto  # Import existing zsh history
 ```
 
 ### 7. Configure Mise
+
 Set up mise for version management:
 
 ```bash
@@ -159,6 +182,7 @@ mise list
 ```
 
 ### 8. Set Up Git Delta
+
 Configure git to use delta for diffs:
 
 ```bash
@@ -170,6 +194,7 @@ git config --global delta.side-by-side true
 ```
 
 ### 9. Reload Shell
+
 Apply all changes:
 
 ```bash
@@ -204,6 +229,7 @@ z ~/.dotfiles  # Should jump to dotfiles
 ## Customizing Your Setup
 
 ### Neovim Plugins
+
 LazyVim includes an extras system. To add more features:
 
 1. Open Neovim: `nvim`
@@ -211,6 +237,7 @@ LazyVim includes an extras system. To add more features:
 3. Select extras to enable (lang.typescript, lang.python, etc.)
 
 ### Tmux Sessionizer Paths
+
 Edit `scripts/tmux-sessionizer.sh` to customize project search paths:
 
 ```bash
@@ -223,7 +250,9 @@ DEFAULT_SEARCH_PATHS=(
 ```
 
 ### Keybindings
+
 Add a global keybinding for tmux sessionizer in your terminal:
+
 - Ghostty: Add to config
 - Alacritty: Add to alacritty.yml
 - iTerm2: Preferences > Keys > Key Bindings
@@ -233,24 +262,28 @@ Example binding: `Ctrl-f` to run `~/.dotfiles/scripts/tmux-sessionizer.sh`
 ## Troubleshooting
 
 ### Colors not working in tmux
+
 ```bash
 echo $TERM  # Should show 'tmux-256color'
 # If not, check tmux.conf and reload
 ```
 
 ### Neovim not found
+
 ```bash
 which nvim  # Check if installed
 brew install neovim  # If not found
 ```
 
 ### FZF keybindings not working
+
 ```bash
 # Install fzf keybindings
 $(brew --prefix)/opt/fzf/install --key-bindings --completion
 ```
 
 ### Tmux plugins not loading
+
 ```bash
 # Check TPM is installed
 ls ~/.tmux/plugins/tpm

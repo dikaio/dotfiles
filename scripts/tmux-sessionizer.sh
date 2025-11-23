@@ -78,13 +78,13 @@ tmux_running=$(pgrep tmux || true)
 
 # If not in tmux and tmux is not running, start a new session
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
-  cd "$selected" && tmux new-session -s "$selected_name" -c "$selected" -n main \; send-keys "nvim ." C-m
+  cd "$selected" && tmux new-session -s "$selected_name" -c "$selected" -n main
   exit 0
 fi
 
 # If the session doesn't exist, create it in detached mode
 if ! tmux has-session -t="$selected_name" 2> /dev/null; then
-  tmux new-session -ds "$selected_name" -c "$selected" -n main \; send-keys "nvim ." C-m
+  tmux new-session -ds "$selected_name" -c "$selected" -n main
 fi
 
 # Switch to the session

@@ -10,18 +10,14 @@
 # ====================
 
 # mise is faster and compatible with asdf plugins and .tool-versions
-# Lazy load mise - only activate when first used
 if command -v mise >/dev/null 2>&1; then
   # Set mise configuration directory
   export MISE_DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/mise"
   export MISE_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/mise"
 
-  # Lazy load mise activation
-  mise() {
-    unfunction mise
-    eval "$(command mise activate zsh)"
-    command mise "$@"
-  }
+  # Activate mise immediately (not lazy-loaded)
+  # This adds mise shims to PATH and enables auto-switching
+  eval "$(mise activate zsh)"
 fi
 
 # ====================
@@ -111,35 +107,38 @@ fi
 # COMPLETIONS
 # ====================
 
+# Initialize completions early (required for tools that use compdef)
+# This is lightweight and prevents "command not found: compdef" errors
+autoload -Uz compinit
+
 # Lazy load heavy completion systems
 __load_completions() {
   # Only run once
   if [[ -z "$COMPLETIONS_LOADED" ]]; then
     export COMPLETIONS_LOADED=1
-    
+
     # Initialize completions
-    autoload -Uz compinit
     if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
       compinit -C  # Skip security check for speed
     else
       compinit
     fi
-    
+
     # Background compile completion dump
     {
       [[ -f ~/.zcompdump ]] && [[ ! -f ~/.zcompdump.zwc || ~/.zcompdump -nt ~/.zcompdump.zwc ]] && zcompile ~/.zcompdump
     } &!
-    
+
     # Set up menuselect keybindings now that completion is loaded
     # The menuselect keymap might not exist until menu selection is triggered
     # Set up the completion styles that enable menu selection
     zstyle ':completion:*' menu select
-    
+
     # Now try to set up the keybindings
     if typeset -f __setup_menuselect_keys >/dev/null; then
       __setup_menuselect_keys
     fi
-    
+
     # Reinitialize completions for Docker if Docker completions exist
     if [[ -d "$HOME/.docker/completions" ]]; then
       fpath=($HOME/.docker/completions $fpath)
