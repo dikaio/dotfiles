@@ -6,6 +6,15 @@
 # Lazy loading configurations for heavy tools to improve shell startup time
 
 # ====================
+# COMPLETIONS (MUST BE FIRST)
+# ====================
+
+# Initialize completions early (required for tools that use compdef)
+# This MUST come before mise activation and other tools that register completions
+autoload -Uz compinit
+compinit -C  # Run compinit with -C (skip security check) for speed
+
+# ====================
 # MISE VERSION MANAGER (replaces asdf)
 # ====================
 
@@ -104,25 +113,18 @@ if [[ -z "$FZF_CTRL_R_LOADED" ]]; then
 fi
 
 # ====================
-# COMPLETIONS
+# COMPLETION LOADING (LAZY)
 # ====================
 
-# Initialize completions early (required for tools that use compdef)
-# This is lightweight and prevents "command not found: compdef" errors
-autoload -Uz compinit
-
-# Lazy load heavy completion systems
+# compinit already initialized at the top of this file
+# This function handles additional completion-related setup on first tab press
 __load_completions() {
   # Only run once
   if [[ -z "$COMPLETIONS_LOADED" ]]; then
     export COMPLETIONS_LOADED=1
 
-    # Initialize completions
-    if [[ -n ${ZDOTDIR:-$HOME}/.zcompdump(#qNmh+24) ]]; then
-      compinit -C  # Skip security check for speed
-    else
-      compinit
-    fi
+    # compinit already called early, so we skip it here
+    # This function now just loads additional completion configurations
 
     # Background compile completion dump
     {
@@ -139,10 +141,10 @@ __load_completions() {
       __setup_menuselect_keys
     fi
 
-    # Reinitialize completions for Docker if Docker completions exist
+    # Docker completions path added to fpath if directory exists
+    # compinit already called early, so Docker completions will be available
     if [[ -d "$HOME/.docker/completions" ]]; then
       fpath=($HOME/.docker/completions $fpath)
-      compinit -C
     fi
   fi
 }
