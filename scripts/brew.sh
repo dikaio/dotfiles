@@ -214,7 +214,7 @@ casks=(
   "mullvad-vpn"          # VPN
   
   # Development
-  "cursor"              # AI-powered code editor
+  # "cursor"              # AI-powered code editor
   "github"              # GitHub Desktop
   "kaleidoscope"        # Diff tool
   "tableplus"           # Database GUI
@@ -223,6 +223,7 @@ casks=(
   "visual-studio-code"  # Visual Studio Code
   
   # Browsers
+  "microsoft-edge"
   "firefox"
   "google-chrome"
   "opera"
@@ -239,7 +240,7 @@ casks=(
   "grammarly-desktop"
   
   # Design
-  "figma"
+  # "figma"
   "sketch"
   "iconjar"             # Icon organizer
   
