@@ -12,7 +12,12 @@
 # Initialize completions early (required for tools that use compdef)
 # This MUST come before mise activation and other tools that register completions
 autoload -Uz compinit
-compinit -C  # Run compinit with -C (skip security check) for speed
+# Regenerate completion cache daily to avoid stale _comps errors
+if [[ -n ~/.zcompdump(#qN.mh+24) ]]; then
+  compinit
+else
+  compinit -C
+fi
 
 # ====================
 # MISE VERSION MANAGER (replaces asdf)
