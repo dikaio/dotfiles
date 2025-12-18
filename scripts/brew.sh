@@ -232,6 +232,7 @@ casks=(
   "signal"
   "slack"
   "quo"
+  "typefully"
 
   # Business
   "google-ads-editor"
@@ -264,6 +265,7 @@ casks=(
   "appcleaner"          # App uninstaller
   "raindropio"          # Bookmark manager
   "tradingview"         # Trading charts
+  "lm-studio"           # Local LLM GUI
 )
 
 info "Installing Homebrew casks..."

@@ -219,3 +219,11 @@ umask 022
 # Docker CLI completions - handled by lazy-loading.zsh
 # bun completions - handled by lazy-loading.zsh
 export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+
+# Added by Antigravity
+export PATH="/Users/dikaio/.antigravity/antigravity/bin:$PATH"
+
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:/Users/dikaio/.lmstudio/bin"
+# End of LM Studio CLI section
+

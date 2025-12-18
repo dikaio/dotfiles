@@ -12,54 +12,6 @@
 
 
 # ====================
-# COMMUNICATION SERVICES
-# ====================
-
-# Twilio Configuration
-export TWILIO_ACCOUNT_SID="${TWILIO_ACCOUNT_SID:-}"
-export TWILIO_AUTH_TOKEN="${TWILIO_AUTH_TOKEN:-}"
-export TWILIO_NUMBER="${TWILIO_NUMBER:-}"
-
-# ====================
-# CLOUD PROVIDERS
-# ====================
-
-# AWS Configuration
-export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID:-}"
-export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY:-}"
-export AWS_DEFAULT_REGION="${AWS_DEFAULT_REGION:-us-east-1}"
-
-# Cloudflare Configuration
-export CLOUDFLARE_API_TOKEN="${CLOUDFLARE_API_TOKEN:-}"
-export CLOUDFLARE_ACCOUNT_ID="${CLOUDFLARE_ACCOUNT_ID:-}"
-
-# Deno Deploy
-export DENO_DEPLOY_TOKEN="${DENO_DEPLOY_TOKEN:-}"
-
-# ====================
-# FINANCIAL APIS
-# ====================
-
-# Market Data APIs
-export NASDAQ_API_KEY="${NASDAQ_API_KEY:-}"
-export TIINGO_API_KEY="${TIINGO_API_KEY:-}"
-
-# Payment Processing
-# export STRIPE_API_KEY="${STRIPE_API_KEY:-}"
-# export STRIPE_WEBHOOK_SECRET="${STRIPE_WEBHOOK_SECRET:-}"
-
-# ====================
-# DEVELOPMENT SERVICES
-# ====================
-
-# RapidAPI
-export RAPIDAPI_KEY="${RAPIDAPI_KEY:-}"
-export RAPIDAPI_HOST="${RAPIDAPI_HOST:-}"
-
-# Vercel v0
-export V0_API_KEY="${V0_API_KEY:-}"
-
-# ====================
 # SECURITY BEST PRACTICES
 # ====================
 
