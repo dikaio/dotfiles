@@ -54,7 +54,7 @@ export GPG_TTY=$(tty)
 # ====================
 
 # PostgreSQL configuration (adjust version as needed)
-POSTGRESQL_VERSION="${POSTGRESQL_VERSION:-16}"
+POSTGRESQL_VERSION="${POSTGRESQL_VERSION:-18}"
 if [[ -d "/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}" ]]; then
   export LDFLAGS="-L/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}/lib"
   export CPPFLAGS="-I/opt/homebrew/opt/postgresql@${POSTGRESQL_VERSION}/include"
@@ -218,12 +218,8 @@ umask 022
 
 # Docker CLI completions - handled by lazy-loading.zsh
 # bun completions - handled by lazy-loading.zsh
-export PATH="/opt/homebrew/opt/postgresql@17/bin:$PATH"
+export PATH="/opt/homebrew/opt/postgresql@18/bin:$PATH"
 
 # Added by Antigravity
-export PATH="/Users/dikaio/.antigravity/antigravity/bin:$PATH"
-
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/Users/dikaio/.lmstudio/bin"
-# End of LM Studio CLI section
+export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
 

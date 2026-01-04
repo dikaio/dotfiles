@@ -251,11 +251,13 @@ casks=(
   "superwhisper"        # Voice transcription
   "topnotch"            # Menu bar organizer
   "rocket-typist"
-  # "cleanshot"           # Screenshot tool
+  # "cleanshot"         # Screenshot tool
+  "notion"              # Note-taking & organization
   
   # Media
   "downie"              # Video downloader
   "permute"             # Media converter
+  "spotify"            # Music streaming
   
   # Storage & Backup
   "arq"                 # Backup software
