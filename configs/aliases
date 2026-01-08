@@ -173,6 +173,11 @@ alias gof="go fmt ./..."
 alias gol="golangci-lint run"
 
 # ====================
+# HOMEBREW
+# ====================
+alias beer="brew update && brew upgrade && brew cleanup"
+
+# ====================
 # GitGuardian
 # ====================
 alias gg-scan="ggshield secret scan repo ."
