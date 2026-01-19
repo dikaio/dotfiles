@@ -106,6 +106,7 @@ formulas=(
   "btop"          # Better top (replaces htop)
   "ncurses"
   "readline"
+  "sandvault" 
 
   # Modern CLI tools
   "fd"            # Better find
@@ -185,7 +186,7 @@ formulas=(
   
   # Graphics/Game development
   "assimp"        # 3D model loader
-  "molten-vk"     # Vulkan on macOS
+"molten-vk"     # Vulkan on macOS
   "miniupnpc"     # UPnP client
 )
 
@@ -415,7 +416,7 @@ if command_exists psql; then
   info "Setting up PostgreSQL..."
   
   # Fix permissions on PostgreSQL data directory
-  PG_DATA_DIR="/opt/homebrew/var/postgresql@16"
+  PG_DATA_DIR="/opt/homebrew/var/postgresql@18"
   if [[ -d "$PG_DATA_DIR" ]]; then
     current_perms=$(stat -f "%Lp" "$PG_DATA_DIR" 2>/dev/null || stat -c "%a" "$PG_DATA_DIR" 2>/dev/null)
     if [[ "$current_perms" != "700" ]]; then
@@ -426,7 +427,7 @@ if command_exists psql; then
   fi
   
   if ! brew services list | grep -q "postgresql.*started"; then
-    brew services start postgresql@16
+    brew services start postgresql@18
     success "PostgreSQL service started"
   else
     success "PostgreSQL service already running"

@@ -96,6 +96,7 @@ alias kd="ksdiff"                   # Direct Kaleidoscope diff
 
 alias clone="gh repo clone"
 alias create="gh repo create"
+alias delete="gh repo delete"
 alias view="gh repo view -w"
 alias gist="gh gist create"
 alias pr="gh pr create"
