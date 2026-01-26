@@ -186,7 +186,7 @@ formulas=(
   
   # Graphics/Game development
   "assimp"        # 3D model loader
-"molten-vk"     # Vulkan on macOS
+  "molten-vk"     # Vulkan on macOS
   "miniupnpc"     # UPnP client
 )
 
@@ -222,6 +222,7 @@ casks=(
   "ghostty"             # Terminal emulator
   "linear-linear"       # Linear project management
   "visual-studio-code"  # Visual Studio Code
+  "figma"                # Figma design tool
   
   # Browsers
   "microsoft-edge"

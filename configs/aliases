@@ -158,6 +158,7 @@ alias bc="bun run check"
 alias bcf="bun run biome check --write --unsafe"
 alias bx="bunx"                     # Execute packages
 alias bio="bun run biome check --write --unsafe"  # Format/Lint/Import/Fix
+alias bur="bun update --latest --interactive --recursive" # Turborepo
 
 # ====================
 # GO
