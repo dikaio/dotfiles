@@ -170,6 +170,7 @@ formulas=(
   "supabase"          # Supabase CLI
   "turso"             # Turso database CLI
   "dorkitude/linctl"  # Linear project management
+  "slack-cli"         # Slack CLI
 
   # Language-specific tools
   #"php"
